@@ -9,7 +9,6 @@ import ru.sorokin.booking.enums.BookingStatus;
 import ru.sorokin.booking.service.AvailabilityService;
 import ru.sorokin.booking.service.BookingService;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
