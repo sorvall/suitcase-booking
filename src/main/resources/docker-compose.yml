@@ -11,3 +11,23 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: suitcase-postgres
+    environment:
+      POSTGRES_USER: postgres       # Логин (по умолчанию 'postgres')
+      POSTGRES_PASSWORD: postgres # Пароль (замените на свой)
+      POSTGRES_DB: postgres      # Название БД (по умолчанию 'suitcase_db')
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Персистентное хранение данных
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # SQL-скрипт для инициализации
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - suitcase-network
