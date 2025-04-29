@@ -9,7 +9,7 @@ spring:
     banner-mode: off
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://103.74.93.74:5432/postgres
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -21,7 +21,7 @@ spring:
       pool-name: HikariPoolSuitcase
 
   rabbitmq:
-    host: localhost
+    host: 103.74.93.74
     port: 5672
     username: guest
     password: guest
