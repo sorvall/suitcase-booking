@@ -1,4 +1,4 @@
-package ru.sorokin.suitcase_booking;
+package ru.sorokin.booking;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

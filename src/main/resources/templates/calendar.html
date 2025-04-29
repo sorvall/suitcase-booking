@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система аренды чемоданов</title>
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #5649c2;
+            --accent-color: #a29bfe;
+            --light-color: #f8f9fb;
+            --dark-color: #2d3436;
+            --success-color: #00b894;
+            --warning-color: #fdcb6e;
+            --danger-color: #d63031;
+            --completed-color: #b2bec3;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #fdfdfd;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #f8f9fb 100%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        h1, h2, h3 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+            margin: 15px auto 0;
+            border-radius: 2px;
+            opacity: 0.8;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: none;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab {
+            padding: 12px 30px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-weight: 500;
+            color: #636e72;
+            transition: var(--transition);
+            position: relative;
+            margin: 0 5px;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            background-color: rgba(108, 92, 231, 0.08);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+            opacity: 0.6;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 25px 0 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #57606f;
+            font-size: 15px;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            max-width: 320px;
+            padding: 14px 18px;
+            border: 1px solid #dfe6e9;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            transition: var(--transition);
+            margin: 0 auto;
+            display: block;
+            background-color: #f8f9fb;
+            color: #2d3436;
+        }
+
+        input[type="date"]:focus,
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(162, 155, 254, 0.2);
+        }
+
+        #uuidInput {
+            background-color: #f1f3f6;
+            cursor: not-allowed;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: block;
+            margin: 30px auto;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15);
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        button.check-btn {
+            background: linear-gradient(135deg, var(--warning-color), #e17055);
+            color: #2d3436;
+        }
+
+        button.check-btn:hover {
+            box-shadow: 0 6px 16px rgba(253, 203, 110, 0.2);
+        }
+
+        button.pay-btn {
+            background: linear-gradient(135deg, var(--success-color), #00a884);
+            margin-top: 20px;
+        }
+
+        button.pay-btn:hover {
+            box-shadow: 0 6px 16px rgba(0, 184, 148, 0.2);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 110, 114, 0.1), transparent);
+            margin: 40px auto;
+            max-width: 70%;
+        }
+
+        #availabilityResult {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .id-item {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 8px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--primary-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+            border: 1px solid rgba(108, 92, 231, 0.15);
+        }
+
+        .id-item:hover {
+            background-color: rgba(108, 92, 231, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.1);
+        }
+
+        .status-box {
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            max-width: 500px;
+            display: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            background-color: white;
+            border-left: 4px solid;
+        }
+
+        .status-box.show {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Цвета статусов */
+        .status-box.pending {
+            border-left-color: var(--warning-color);
+        }
+
+        .status-box.confirmed {
+            border-left-color: var(--success-color);
+        }
+
+        .status-box.completed {
+            border-left-color: var(--completed-color);
+        }
+
+        .status-box.cancelled {
+            border-left-color: var(--danger-color);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .payment-info {
+            margin: 15px 0;
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            display: inline-block;
+            background: rgba(253, 203, 110, 0.1);
+            color: var(--dark-color);
+        }
+
+        .payment-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #dfe6e9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tab {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            input[type="date"],
+            input[type="text"],
+            input[type="tel"] {
+                padding: 12px 15px;
+            }
+
+            button {
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Аренда чемоданов</h1>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="main">Аренда</div>
+        <div class="tab" data-tab="status">Проверка статуса</div>
+    </div>
+
+    <!-- Основная вкладка (Аренда) -->
+    <div id="main" class="tab-content active">
+        <section>
+            <h2>Проверка доступности</h2>
+
+            <form id="availabilityForm">
+                <div class="form-group">
+                    <label for="startDate">Дата начала:</label>
+                    <input type="date" id="startDate" name="startDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate">Дата окончания:</label>
+                    <input type="date" id="endDate" name="endDate" required>
+                </div>
+
+                <button type="submit">Проверить доступность</button>
+            </form>
+
+            <div id="availabilityResult"></div>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>Оформление бронирования</h2>
+
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="uuidInput">Выберите чемодан:</label>
+                    <input type="text" id="uuidInput" name="uuid" required disabled
+                           placeholder="Дважды кликните на ID чемодана">
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Ваше имя:</label>
+                    <input type="text" id="fullName" name="fullName" required
+                           placeholder="Иванов Иван Иванович">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон:</label>
+                    <input type="tel" id="phone" name="phone" required
+                           placeholder="+7 ___ ___ __ __"
+                           pattern="\+7\s\d{3}\s\d{3}\s\d{2}\s\d{2}">
+                </div>
+
+                <input type="hidden" id="bookingStartDate" name="startDate">
+                <input type="hidden" id="bookingEndDate" name="endDate">
+
+                <button type="submit">Забронировать</button>
+            </form>
+
+            <div id="bookingResult" class="status-box"></div>
+        </section>
+    </div>
+
+    <!-- Вкладка проверки статуса -->
+    <div id="status" class="tab-content">
+        <div class="form-group">
+            <label for="checkUuidInput">Номер брони:</label>
+            <input type="text" id="checkUuidInput" placeholder="Введите UUID">
+        </div>
+
+        <button id="checkOrderBtn" class="check-btn">Проверить статус</button>
+
+        <div id="checkOrderResult" class="status-box">
+            <div id="orderStatusContent"></div>
+            <button id="payButton" class="pay-btn" style="display: none;">Оплатить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Инициализация вкладок
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Удаляем active у всех вкладок и контента
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                // Активируем текущую вкладку
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Установка минимальной даты (сегодня)
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById("startDate").min = today;
+        document.getElementById("endDate").min = today;
+
+        // Улучшенная маска для телефона
+        const phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function(e) {
+                const cursorPosition = this.selectionStart;
+                const isDeleting = e.inputType === 'deleteContentBackward' || e.inputType === 'deleteContentForward';
+
+                // Получаем только цифры
+                let numbers = this.value.replace(/\D/g, '');
+
+                // Корректируем начало номера
+                if (numbers.length > 0) {
+                    if (numbers[0] === '8') {
+                        numbers = '7' + numbers.substring(1);
+                    } else if (numbers[0] !== '7') {
+                        numbers = '7' + numbers;
+                    }
+                }
+
+                // Ограничиваем длину
+                numbers = numbers.substring(0, 11);
+
+                // Форматируем номер
+                let formattedValue = '+7';
+                if (numbers.length > 1) {
+                    formattedValue += ' ' + numbers.substring(1, 4);
+                }
+                if (numbers.length > 4) {
+                    formattedValue += ' ' + numbers.substring(4, 7);
+                }
+                if (numbers.length > 7) {
+                    formattedValue += ' ' + numbers.substring(7, 9);
+                }
+                if (numbers.length > 9) {
+                    formattedValue += ' ' + numbers.substring(9, 11);
+                }
+
+                // Устанавливаем новое значение
+                this.value = formattedValue;
+
+                // Корректируем позицию курсора
+                let newCursorPosition = cursorPosition;
+
+                if (!isDeleting) {
+                    // При добавлении символа после пробела перемещаем курсор вперед
+                    if (cursorPosition === 4 || cursorPosition === 8 || cursorPosition === 12) {
+                        newCursorPosition = cursorPosition + 1;
+                    }
+                } else {
+                    // При удалении перед пробелом перемещаем курсор назад
+                    if (cursorPosition === 5 || cursorPosition === 9 || cursorPosition === 13) {
+                        newCursorPosition = cursorPosition - 1;
+                    }
+                }
+
+                // Убедимся, что курсор не выходит за пределы строки
+                newCursorPosition = Math.min(newCursorPosition, formattedValue.length);
+                this.setSelectionRange(newCursorPosition, newCursorPosition);
+            });
+
+            // Обработка удаления символов
+            phoneInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace') {
+                    const cursorPosition = this.selectionStart;
+                    // Запрещаем удаление +7
+                    if (cursorPosition <= 3) {
+                        e.preventDefault();
+                        return;
+                    }
+
+                    // Если пытаемся удалить пробел, перемещаем курсор назад
+                    if (this.value[cursorPosition - 1] === ' ') {
+                        this.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
+                        e.preventDefault();
+                    }
+                }
+            });
+
+            // Обработка вставки из буфера обмена
+            phoneInput.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pasteData = e.clipboardData.getData('text/plain').replace(/\D/g, '');
+                if (pasteData.length > 0) {
+                    let value = pasteData;
+                    // Корректируем начало номера
+                    if (value[0] === '8') {
+                        value = '7' + value.substring(1);
+                    } else if (value[0] !== '7') {
+                        value = '7' + value;
+                    }
+
+                    // Ограничиваем длину
+                    if (value.length > 11) {
+                        value = value.substring(0, 11);
+                    }
+
+                    // Форматируем
+                    let formattedValue = '+7';
+                    if (value.length > 1) {
+                        formattedValue += ' ' + value.substring(1, 4);
+                    }
+                    if (value.length > 4) {
+                        formattedValue += ' ' + value.substring(4, 7);
+                    }
+                    if (value.length > 7) {
+                        formattedValue += ' ' + value.substring(7, 9);
+                    }
+                    if (value.length > 9) {
+                        formattedValue += ' ' + value.substring(9, 11);
+                    }
+
+                    this.value = formattedValue;
+                }
+            });
+        }
+
+        // Проверка доступности чемоданов
+        async function checkAvailability() {
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+            const resultContainer = document.getElementById("availabilityResult");
+
+            if (!startDate || !endDate || !resultContainer) return;
+
+            if (endDate < startDate) {
+                resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Дата окончания не может быть раньше даты начала!</p>";
+                return;
+            }
+
+            try {
+                resultContainer.innerHTML = "<div class='loading'></div><p>Проверяем доступность...</p>";
+
+                const response = await fetch(`/availability?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`);
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                }
+
+                const data = await response.json();
+                displayAvailableItems(data);
+            } catch (error) {
+                resultContainer.innerHTML = `<p style='color: var(--danger-color);'>Ошибка: ${error.message}</p>`;
+                console.error("Ошибка при проверке доступности:", error);
+            }
+        }
+
+        document.getElementById("availabilityForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            checkAvailability();
+        });
+
+        // Оформление бронирования с передачей JSON и phoneNumber
+        document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const uuid = document.getElementById("uuidInput").value;
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+            const fullName = document.getElementById("fullName").value;
+            const phoneNumber = document.getElementById("phone").value;
+            const resultContainer = document.getElementById("bookingResult");
+
+            if (!resultContainer) {
+                console.error("Контейнер для результатов бронирования не найден");
+                return;
+            }
+
+            if (!uuid) {
+                resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Выберите чемодан из списка!</p>";
+                resultContainer.className = "status-box show";
+                return;
+            }
+
+            if (!fullName || !phoneNumber) {
+                resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Заполните все обязательные поля!</p>";
+                resultContainer.className = "status-box show";
+                return;
+            }
+
+            // Проверка формата телефона
+            const phoneRegex = /^\+7\s\d{3}\s\d{3}\s\d{2}\s\d{2}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Введите телефон в формате +7 XXX XXX XX XX</p>";
+                resultContainer.className = "status-box show";
+                return;
+            }
+
+            try {
+                resultContainer.innerHTML = "<div class='loading'></div><p>Оформляем бронирование...</p>";
+                resultContainer.className = "status-box show";
+
+                // Подготовка данных для отправки в формате JSON
+                const bookingData = {
+                    uuid: uuid,
+                    startDate: startDate,
+                    endDate: endDate,
+                    fullName: fullName,
+                    phoneNumber: phoneNumber
+                };
+
+                const response = await fetch('/booking', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                }
+
+                const bookingId = await response.text();
+
+                resultContainer.innerHTML = `
+                        <h3>Бронирование оформлено!</h3>
+                        <p>Номер брони: <strong>${bookingId}</strong></p>
+                        <p>Период: ${formatDate(startDate)} — ${formatDate(endDate)}</p>
+                        <p>Имя: ${fullName}</p>
+                        <p>Телефон: ${phoneNumber}</p>
+                    `;
+                resultContainer.className = "status-box confirmed show";
+
+                // Очищаем форму
+                document.getElementById("uuidInput").value = "";
+                document.getElementById("uuidInput").disabled = true;
+                document.getElementById("fullName").value = "";
+                document.getElementById("phone").value = "";
+
+                // Заполняем поле для проверки статуса
+                document.getElementById("checkUuidInput").value = bookingId.replace(/['"]+/g, '');
+
+                // Переключаем на вкладку проверки статуса
+                switchToStatusTab();
+
+                // Автоматически проверяем статус
+                checkOrderStatus(bookingId.replace(/['"]+/g, ''));
+
+                // Автоматически проверяем доступность снова
+                setTimeout(checkAvailability, 300);
+
+            } catch (error) {
+                resultContainer.innerHTML = `<p style='color: var(--danger-color);'>Ошибка: ${error.message}</p>`;
+                resultContainer.className = "status-box show";
+                console.error("Ошибка при бронировании:", error);
+            }
+        });
+
+        // Проверка статуса заказа
+        document.getElementById("checkOrderBtn").addEventListener("click", function() {
+            const uuid = document.getElementById("checkUuidInput").value.trim();
+            if (!uuid) {
+                showStatusError(document.getElementById("checkOrderResult"), "Введите номер брони!");
+                return;
+            }
+            checkOrderStatus(uuid);
+        });
+
+        // Функция проверки статуса заказа
+        async function checkOrderStatus(uuid) {
+            const statusBox = document.getElementById("checkOrderResult");
+            const content = document.getElementById("orderStatusContent");
+            const payBtn = document.getElementById("payButton");
+
+            if (!statusBox || !content || !payBtn) {
+                console.error("Не найдены необходимые элементы для отображения статуса");
+                return;
+            }
+
+            try {
+                content.innerHTML = "<div class='loading'></div><p>Проверяем статус...</p>";
+                statusBox.className = "status-box show";
+                payBtn.style.display = "none";
+
+                const response = await fetch(`/booking/check?uuid=${encodeURIComponent(uuid)}`);
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                }
+
+                let status = await response.text();
+                if (!status) throw new Error("Пустой ответ от сервера");
+
+                // Удаляем кавычки из статуса, если они есть
+                status = status.replace(/['"]+/g, '');
+                const statusText = getStatusText(status);
+
+                // Рассчитываем время +10 минут
+                const now = new Date();
+                const paymentDeadline = new Date(now.getTime() + 10 * 60000);
+                const deadlineString = paymentDeadline.toLocaleTimeString('ru-RU', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                let statusHtml = `
+                    <h3>Статус заказа</h3>
+                    <p>Номер: ${uuid}</p>
+                    <p>Статус: <strong>${statusText}</strong></p>
+                `;
+
+                if (status === "PENDING") {
+                    statusHtml += `
+                        <div class="payment-section">
+                            <div class="payment-info">
+                                <p>Необходимо перевести 500 рублей предоплаты по номеру 8 965 4087</p>
+                                <p>Срок оплаты: до ${deadlineString}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                content.innerHTML = statusHtml;
+                statusBox.className = `status-box ${status.toLowerCase()} show`;
+
+                if (status === "PENDING") {
+                    payBtn.style.display = "block";
+                    payBtn.onclick = function() {
+                        processPayment(uuid);
+                    };
+                }
+
+            } catch (error) {
+                showStatusError(statusBox, error.message);
+                console.error("Ошибка при проверке статуса:", error);
+            }
+        }
+
+        // Процесс оплаты
+        function processPayment(uuid) {
+            const statusBox = document.getElementById("checkOrderResult");
+            const content = document.getElementById("orderStatusContent");
+            const payBtn = document.getElementById("payButton");
+
+            if (!statusBox || !content || !payBtn) return;
+
+            payBtn.disabled = true;
+            content.innerHTML += "<div class='loading'></div><p>Идёт процесс оплаты...</p>";
+
+            // Здесь должна быть реальная логика оплаты
+            setTimeout(function() {
+                // После успешной оплаты обновляем статус
+                content.innerHTML = `
+                    <h3>Оплата прошла успешно!</h3>
+                    <p>Номер брони: <strong>${uuid}</strong></p>
+                    <p>Статус: <strong>Подтвержден</strong></p>
+                `;
+                statusBox.className = "status-box confirmed show";
+                payBtn.style.display = "none";
+            }, 2000);
+        }
+
+        // Переключение на вкладку проверки статуса
+        function switchToStatusTab() {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            document.querySelector('.tab[data-tab="status"]').classList.add('active');
+            document.getElementById('status').classList.add('active');
+        }
+
+        // Отображение доступных чемоданов
+        function displayAvailableItems(items) {
+            const container = document.getElementById("availabilityResult");
+            if (!container) {
+                console.error("Контейнер для доступных чемоданов не найден");
+                return;
+            }
+
+            container.innerHTML = "<h3>Доступные чемоданы:</h3>";
+
+            if (!items || items.length === 0) {
+                container.innerHTML += "<p>Нет доступных вариантов</p>";
+                return;
+            }
+
+            items.forEach(item => {
+                if (!item.id) return;
+
+                const elem = document.createElement("div");
+                elem.className = "id-item";
+                elem.textContent = item.id;
+                elem.addEventListener("dblclick", function() {
+                    const uuidInput = document.getElementById("uuidInput");
+                    if (uuidInput) {
+                        uuidInput.value = item.id;
+                        uuidInput.disabled = false;
+                    }
+                });
+                container.appendChild(elem);
+            });
+        }
+
+        // Показать ошибку статуса
+        function showStatusError(container, message) {
+            if (!container) {
+                console.error("Контейнер для ошибки не найден");
+                return;
+            }
+
+            container.innerHTML = `
+                    <div>
+                        <h3>Ошибка</h3>
+                        <p>${message}</p>
+                    </div>
+                `;
+            container.className = "status-box show";
+        }
+
+        // Преобразование статуса в текст
+        function getStatusText(status) {
+            const statusMap = {
+                "PENDING": "Не подтвержден",
+                "CONFIRMED": "Подтвержден",
+                "COMPLETED": "Выполнен",
+                "CANCELLED": "Отменен"
+            };
+            return statusMap[status] || status;
+        }
+
+        // Форматирование даты
+        function formatDate(dateString) {
+            try {
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                return new Date(dateString).toLocaleDateString('ru-RU', options);
+            } catch (e) {
+                return dateString;
+            }
+        }
+    });
+</script>
+</body>
+</html>

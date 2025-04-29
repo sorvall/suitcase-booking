@@ -1,0 +1,62 @@
+name: Build and Deploy Gateway
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Copy JAR to remote server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "build/libs/suitcase-booking-0.0.1-SNAPSHOT"
+          target: "/root/suitcase-app/booking"
+
+      - name: Copy Dockerfile to remote server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "Dockerfile"
+          target: "/root/suitcase-app/booking"
+
+      - name: SSH Command to Build and Run Docker Container
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /root/suitcase-app/booking
+
+            # Остановить и удалить старый контейнер, если он существует
+            docker stop suitcase-booking-container || true
+            docker rm suitcase-booking-container || true
+
+            # Построить новый образ
+            docker build -t suitcase-booking .
+
+            # Запустить новый контейнер
+            docker run -d -p 8081:8081 --name suitcase-booking-container suitcase-booking
