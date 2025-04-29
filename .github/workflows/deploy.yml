@@ -30,7 +30,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "build/libs/suitcase-booking-0.0.1-SNAPSHOT"
+          source: "build/libs/suitcase-booking-0.0.1-SNAPSHOT.jar"
           target: "/root/suitcase-app/booking"
 
       - name: Copy Dockerfile to remote server
