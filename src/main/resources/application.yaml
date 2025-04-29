@@ -24,8 +24,8 @@ spring:
   rabbitmq:
     host: 103.74.93.74
     port: 5672
-    username: guest
-    password: guest
+    username: admin
+    password: admin
 
     jpa:
       hibernate:
