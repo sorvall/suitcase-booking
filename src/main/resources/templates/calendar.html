@@ -201,15 +201,6 @@
             box-shadow: 0 6px 16px rgba(253, 203, 110, 0.2);
         }
 
-        button.pay-btn {
-            background: linear-gradient(135deg, var(--success-color), #00a884);
-            margin-top: 20px;
-        }
-
-        button.pay-btn:hover {
-            box-shadow: 0 6px 16px rgba(0, 184, 148, 0.2);
-        }
-
         hr {
             border: 0;
             height: 1px;
@@ -429,7 +420,6 @@
 
         <div id="checkOrderResult" class="status-box">
             <div id="orderStatusContent"></div>
-            <button id="payButton" class="pay-btn" style="display: none;">Оплатить</button>
         </div>
     </div>
 </div>
@@ -456,7 +446,7 @@
         document.getElementById("startDate").min = today;
         document.getElementById("endDate").min = today;
 
-        // Улучшенная маска для телефона
+        // Улучшенная маска для телефона с автоматическим перемещением курсора
         const phoneInput = document.getElementById('phone');
         if (phoneInput) {
             phoneInput.addEventListener('input', function(e) {
@@ -499,16 +489,19 @@
                 // Корректируем позицию курсора
                 let newCursorPosition = cursorPosition;
 
+                // При добавлении символа перемещаем курсор вперед
                 if (!isDeleting) {
-                    // При добавлении символа после пробела перемещаем курсор вперед
-                    if (cursorPosition === 4 || cursorPosition === 8 || cursorPosition === 12) {
-                        newCursorPosition = cursorPosition + 1;
-                    }
+                    if (numbers.length <= 1) newCursorPosition = 3;
+                    else if (numbers.length <= 4) newCursorPosition = 7;
+                    else if (numbers.length <= 7) newCursorPosition = 11;
+                    else if (numbers.length <= 9) newCursorPosition = 14;
+                    else newCursorPosition = 17;
                 } else {
-                    // При удалении перед пробелом перемещаем курсор назад
-                    if (cursorPosition === 5 || cursorPosition === 9 || cursorPosition === 13) {
-                        newCursorPosition = cursorPosition - 1;
-                    }
+                    // При удалении перемещаем курсор назад
+                    if (cursorPosition === 7) newCursorPosition = 3;
+                    else if (cursorPosition === 11) newCursorPosition = 7;
+                    else if (cursorPosition === 14) newCursorPosition = 11;
+                    else if (cursorPosition === 17) newCursorPosition = 14;
                 }
 
                 // Убедимся, что курсор не выходит за пределы строки
@@ -568,6 +561,8 @@
                     }
 
                     this.value = formattedValue;
+                    // Устанавливаем курсор в конец
+                    this.setSelectionRange(formattedValue.length, formattedValue.length);
                 }
             });
         }
@@ -717,9 +712,8 @@
         async function checkOrderStatus(uuid) {
             const statusBox = document.getElementById("checkOrderResult");
             const content = document.getElementById("orderStatusContent");
-            const payBtn = document.getElementById("payButton");
 
-            if (!statusBox || !content || !payBtn) {
+            if (!statusBox || !content) {
                 console.error("Не найдены необходимые элементы для отображения статуса");
                 return;
             }
@@ -727,7 +721,6 @@
             try {
                 content.innerHTML = "<div class='loading'></div><p>Проверяем статус...</p>";
                 statusBox.className = "status-box show";
-                payBtn.style.display = "none";
 
                 const response = await fetch(`/booking/check?uuid=${encodeURIComponent(uuid)}`);
 
@@ -770,41 +763,10 @@
                 content.innerHTML = statusHtml;
                 statusBox.className = `status-box ${status.toLowerCase()} show`;
 
-                if (status === "PENDING") {
-                    payBtn.style.display = "block";
-                    payBtn.onclick = function() {
-                        processPayment(uuid);
-                    };
-                }
-
             } catch (error) {
                 showStatusError(statusBox, error.message);
                 console.error("Ошибка при проверке статуса:", error);
             }
-        }
-
-        // Процесс оплаты
-        function processPayment(uuid) {
-            const statusBox = document.getElementById("checkOrderResult");
-            const content = document.getElementById("orderStatusContent");
-            const payBtn = document.getElementById("payButton");
-
-            if (!statusBox || !content || !payBtn) return;
-
-            payBtn.disabled = true;
-            content.innerHTML += "<div class='loading'></div><p>Идёт процесс оплаты...</p>";
-
-            // Здесь должна быть реальная логика оплаты
-            setTimeout(function() {
-                // После успешной оплаты обновляем статус
-                content.innerHTML = `
-                    <h3>Оплата прошла успешно!</h3>
-                    <p>Номер брони: <strong>${uuid}</strong></p>
-                    <p>Статус: <strong>Подтвержден</strong></p>
-                `;
-                statusBox.className = "status-box confirmed show";
-                payBtn.style.display = "none";
-            }, 2000);
         }
 
         // Переключение на вкладку проверки статуса
