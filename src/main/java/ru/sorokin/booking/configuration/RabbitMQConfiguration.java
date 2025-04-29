@@ -13,6 +13,8 @@ import java.util.Map;
 
 @Configuration
 public class RabbitMQConfiguration {
+    public static final String TELEGRAM_QUEUE = "telegram.queue";
+
     public static final String ORDER_EXCHANGE = "order.exchange";
     public static final String ORDER_QUEUE = "order.queue";
 

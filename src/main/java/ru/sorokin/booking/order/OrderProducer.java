@@ -30,4 +30,15 @@ public class OrderProducer {
             throw new RuntimeException(e);
         }
     }
+
+    public void sendNotification(String messageBody) {
+        try {
+            Message message = new Message(mapper.writeValueAsBytes(messageBody));
+            rabbitTemplate.convertAndSend(
+                    RabbitMQConfiguration.TELEGRAM_QUEUE,
+                    message);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
