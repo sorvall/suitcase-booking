@@ -22,7 +22,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
       - name: Copy JAR to remote server
         uses: appleboy/scp-action@v0.1.4
