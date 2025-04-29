@@ -5,7 +5,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Копируем JAR файл в контейнер
-COPY build/libs/suitcase-gateway-0.0.1-SNAPSHOT.jar /app/suitcase-booking.jar
+COPY build/libs/suitcase-booking-0.0.1-SNAPSHOT.jar /app/suitcase-booking.jar
 
 # Открываем порт, если приложение использует порты (например, 8080)
 EXPOSE 8081
