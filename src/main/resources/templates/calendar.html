@@ -259,7 +259,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Цвета статусов */
         .status-box.pending {
             border-left-color: var(--warning-color);
         }
@@ -336,34 +335,55 @@
 
         .carousel-control {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 50%;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            border: none;
-            color: var(--primary-color);
-            font-size: 20px;
-            font-weight: bold;
+        }
+
+        .carousel:hover .carousel-control {
+            opacity: 1;
         }
 
         .carousel-control.prev {
-            left: 15px;
+            left: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
         }
 
         .carousel-control.next {
-            right: 15px;
+            right: 0;
+            background: linear-gradient(270deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .carousel-control::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            transform: rotate(-45deg);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .carousel-control.next::before {
+            transform: rotate(135deg);
+        }
+
+        .carousel-control:hover::before {
+            border-color: var(--accent-color);
         }
 
         .carousel-indicators {
             position: absolute;
-            bottom: 15px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -372,16 +392,30 @@
         }
 
         .carousel-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+            width: 40px;
+            height: 3px;
             background-color: rgba(255, 255, 255, 0.5);
             cursor: pointer;
             border: none;
+            padding: 0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
-        .carousel-indicator.active {
+        .carousel-indicator::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
             background-color: white;
+            transition: width 0.3s linear;
+        }
+
+        .carousel-indicator.active::after {
+            width: 100%;
         }
 
         .description {
@@ -423,6 +457,17 @@
 
             .carousel {
                 max-width: 100%;
+            }
+
+            .carousel-control {
+                opacity: 1;
+                width: 40px;
+            }
+
+            .carousel-control::before {
+                width: 20px;
+                height: 20px;
+                border-width: 2px;
             }
         }
 
@@ -553,12 +598,12 @@
                     <img src="images/3.jpeg" alt="Велочемодан - фото 3">
                 </div>
             </div>
-            <button class="carousel-control prev">❮</button>
-            <button class="carousel-control next">❯</button>
+            <button class="carousel-control prev" aria-label="Предыдущий слайд"></button>
+            <button class="carousel-control next" aria-label="Следующий слайд"></button>
             <div class="carousel-indicators">
-                <button class="carousel-indicator active"></button>
-                <button class="carousel-indicator"></button>
-                <button class="carousel-indicator"></button>
+                <button class="carousel-indicator active" aria-label="Слайд 1"></button>
+                <button class="carousel-indicator" aria-label="Слайд 2"></button>
+                <button class="carousel-indicator" aria-label="Слайд 3"></button>
             </div>
         </div>
     </div>
@@ -584,20 +629,15 @@
         const tabs = document.querySelectorAll('.tab');
         const tabContents = document.querySelectorAll('.tab-content');
 
-        // Функция для переключения вкладок
         function switchTab(tabElement) {
-            // Удаляем active у всех вкладок
             tabs.forEach(t => t.classList.remove('active'));
-            // Удаляем active у всего контента
             tabContents.forEach(c => c.classList.remove('active'));
 
-            // Активируем текущую вкладку
             tabElement.classList.add('active');
             const tabId = tabElement.getAttribute('data-tab');
             document.getElementById(tabId).classList.add('active');
         }
 
-        // Назначаем обработчики клика на все вкладки
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
                 switchTab(this);
@@ -612,11 +652,9 @@
         startDateInput.min = today;
         endDateInput.min = today;
 
-        // Обновление минимальной даты окончания при изменении даты начала
         startDateInput.addEventListener('change', function() {
             if (this.value) {
                 endDateInput.min = this.value;
-                // Если текущее значение даты окончания меньше новой даты начала, сбрасываем его
                 if (endDateInput.value && endDateInput.value < this.value) {
                     endDateInput.value = '';
                 }
@@ -632,64 +670,68 @@
 
         let currentIndex = 0;
         const itemCount = carouselItems.length;
+        let carouselInterval;
 
         function updateCarousel() {
             carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-            // Обновляем индикаторы
             indicators.forEach((indicator, index) => {
                 indicator.classList.toggle('active', index === currentIndex);
             });
         }
 
-        prevBtn.addEventListener('click', () => {
+        function goToPrevSlide() {
             currentIndex = (currentIndex - 1 + itemCount) % itemCount;
             updateCarousel();
-        });
+            resetCarouselInterval();
+        }
 
-        nextBtn.addEventListener('click', () => {
+        function goToNextSlide() {
             currentIndex = (currentIndex + 1) % itemCount;
             updateCarousel();
-        });
+            resetCarouselInterval();
+        }
 
-        // Клик по индикаторам
+        prevBtn.addEventListener('click', goToPrevSlide);
+        nextBtn.addEventListener('click', goToNextSlide);
+
         indicators.forEach((indicator, index) => {
             indicator.addEventListener('click', () => {
                 currentIndex = index;
                 updateCarousel();
+                resetCarouselInterval();
             });
         });
 
-        // Автоматическое перелистывание каждые 5 секунд
-        let carouselInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % itemCount;
-            updateCarousel();
-        }, 5000);
+        function startCarouselInterval() {
+            carouselInterval = setInterval(goToNextSlide, 5000);
+        }
 
-        // Остановка автоматического перелистывания при наведении
+        function resetCarouselInterval() {
+            clearInterval(carouselInterval);
+            startCarouselInterval();
+        }
+
+        startCarouselInterval();
+
         const carousel = document.querySelector('.carousel');
         carousel.addEventListener('mouseenter', () => {
             clearInterval(carouselInterval);
         });
 
         carousel.addEventListener('mouseleave', () => {
-            carouselInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % itemCount;
-                updateCarousel();
-            }, 5000);
+            startCarouselInterval();
         });
 
-        // Улучшенная маска для телефона с автоматическим перемещением курсора
+        // Остальной JavaScript код
         const phoneInput = document.getElementById('phone');
         if (phoneInput) {
             phoneInput.addEventListener('input', function(e) {
                 const cursorPosition = this.selectionStart;
                 const isDeleting = e.inputType === 'deleteContentBackward' || e.inputType === 'deleteContentForward';
 
-                // Получаем только цифры
                 let numbers = this.value.replace(/\D/g, '');
 
-                // Корректируем начало номера
                 if (numbers.length > 0) {
                     if (numbers[0] === '8') {
                         numbers = '7' + numbers.substring(1);
@@ -698,10 +740,8 @@
                     }
                 }
 
-                // Ограничиваем длину
                 numbers = numbers.substring(0, 11);
 
-                // Форматируем номер
                 let formattedValue = '+7';
                 if (numbers.length > 1) {
                     formattedValue += ' ' + numbers.substring(1, 4);
@@ -716,13 +756,10 @@
                     formattedValue += ' ' + numbers.substring(9, 11);
                 }
 
-                // Устанавливаем новое значение
                 this.value = formattedValue;
 
-                // Корректируем позицию курсора
                 let newCursorPosition = cursorPosition;
 
-                // При добавлении символа перемещаем курсор вперед
                 if (!isDeleting) {
                     if (numbers.length <= 1) newCursorPosition = 3;
                     else if (numbers.length <= 4) newCursorPosition = 7;
@@ -730,29 +767,24 @@
                     else if (numbers.length <= 9) newCursorPosition = 14;
                     else newCursorPosition = 17;
                 } else {
-                    // При удалении перемещаем курсор назад
                     if (cursorPosition === 7) newCursorPosition = 3;
                     else if (cursorPosition === 11) newCursorPosition = 7;
                     else if (cursorPosition === 14) newCursorPosition = 11;
                     else if (cursorPosition === 17) newCursorPosition = 14;
                 }
 
-                // Убедимся, что курсор не выходит за пределы строки
                 newCursorPosition = Math.min(newCursorPosition, formattedValue.length);
                 this.setSelectionRange(newCursorPosition, newCursorPosition);
             });
 
-            // Обработка удаления символов
             phoneInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Backspace') {
                     const cursorPosition = this.selectionStart;
-                    // Запрещаем удаление +7
                     if (cursorPosition <= 3) {
                         e.preventDefault();
                         return;
                     }
 
-                    // Если пытаемся удалить пробел, перемещаем курсор назад
                     if (this.value[cursorPosition - 1] === ' ') {
                         this.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
                         e.preventDefault();
@@ -760,25 +792,21 @@
                 }
             });
 
-            // Обработка вставки из буфера обмена
             phoneInput.addEventListener('paste', function(e) {
                 e.preventDefault();
                 const pasteData = e.clipboardData.getData('text/plain').replace(/\D/g, '');
                 if (pasteData.length > 0) {
                     let value = pasteData;
-                    // Корректируем начало номера
                     if (value[0] === '8') {
                         value = '7' + value.substring(1);
                     } else if (value[0] !== '7') {
                         value = '7' + value;
                     }
 
-                    // Ограничиваем длину
                     if (value.length > 11) {
                         value = value.substring(0, 11);
                     }
 
-                    // Форматируем
                     let formattedValue = '+7';
                     if (value.length > 1) {
                         formattedValue += ' ' + value.substring(1, 4);
@@ -794,13 +822,11 @@
                     }
 
                     this.value = formattedValue;
-                    // Устанавливаем курсор в конец
                     this.setSelectionRange(formattedValue.length, formattedValue.length);
                 }
             });
         }
 
-        // Проверка доступности чемоданов
         async function checkAvailability() {
             const startDate = startDateInput.value;
             const endDate = endDateInput.value;
@@ -835,7 +861,6 @@
             checkAvailability();
         });
 
-        // Оформление бронирования с передачей JSON и phoneNumber
         document.getElementById("bookingForm").addEventListener("submit", async function(e) {
             e.preventDefault();
             const uuid = document.getElementById("uuidInput").value;
@@ -862,7 +887,6 @@
                 return;
             }
 
-            // Проверка формата телефона
             const phoneRegex = /^\+7\s\d{3}\s\d{3}\s\d{2}\s\d{2}$/;
             if (!phoneRegex.test(phoneNumber)) {
                 resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Введите телефон в формате +7 XXX XXX XX XX</p>";
@@ -874,7 +898,6 @@
                 resultContainer.innerHTML = "<div class='loading'></div><p>Оформляем бронирование...</p>";
                 resultContainer.className = "status-box show";
 
-                // Подготовка данных для отправки в формате JSON
                 const bookingData = {
                     uuid: uuid,
                     startDate: startDate,
@@ -906,22 +929,17 @@
                     `;
                 resultContainer.className = "status-box confirmed show";
 
-                // Очищаем форму
                 document.getElementById("uuidInput").value = "";
                 document.getElementById("uuidInput").disabled = true;
                 document.getElementById("fullName").value = "";
                 document.getElementById("phone").value = "";
 
-                // Заполняем поле для проверки статуса
                 document.getElementById("checkUuidInput").value = bookingId.replace(/['"]+/g, '');
 
-                // Переключаем на вкладку проверки статуса
                 switchToStatusTab();
 
-                // Автоматически проверяем статус
                 checkOrderStatus(bookingId.replace(/['"]+/g, ''));
 
-                // Автоматически проверяем доступность снова
                 setTimeout(checkAvailability, 300);
 
             } catch (error) {
@@ -931,7 +949,6 @@
             }
         });
 
-        // Проверка статуса заказа
         document.getElementById("checkOrderBtn").addEventListener("click", function() {
             const uuid = document.getElementById("checkUuidInput").value.trim();
             if (!uuid) {
@@ -941,7 +958,6 @@
             checkOrderStatus(uuid);
         });
 
-        // Функция проверки статуса заказа
         async function checkOrderStatus(uuid) {
             const statusBox = document.getElementById("checkOrderResult");
             const content = document.getElementById("orderStatusContent");
@@ -964,11 +980,9 @@
                 let status = await response.text();
                 if (!status) throw new Error("Пустой ответ от сервера");
 
-                // Удаляем кавычки из статуса, если они есть
                 status = status.replace(/['"]+/g, '');
                 const statusText = getStatusText(status);
 
-                // Рассчитываем время +10 минут
                 const now = new Date();
                 const paymentDeadline = new Date(now.getTime() + 10 * 60000);
                 const deadlineString = paymentDeadline.toLocaleTimeString('ru-RU', {
@@ -1002,13 +1016,11 @@
             }
         }
 
-        // Переключение на вкладку проверки статуса
         function switchToStatusTab() {
             const statusTab = document.querySelector('.tab[data-tab="status"]');
             switchTab(statusTab);
         }
 
-        // Отображение доступных чемоданов
         function displayAvailableItems(items) {
             const container = document.getElementById("availabilityResult");
             if (!container) {
@@ -1040,7 +1052,6 @@
             });
         }
 
-        // Показать ошибку статуса
         function showStatusError(container, message) {
             if (!container) {
                 console.error("Контейнер для ошибки не найден");
@@ -1056,7 +1067,6 @@
             container.className = "status-box show";
         }
 
-        // Преобразование статуса в текст
         function getStatusText(status) {
             const statusMap = {
                 "PENDING": "Не подтвержден",
@@ -1067,7 +1077,6 @@
             return statusMap[status] || status;
         }
 
-        // Форматирование даты
         function formatDate(dateString) {
             try {
                 const options = { day: 'numeric', month: 'long', year: 'numeric' };

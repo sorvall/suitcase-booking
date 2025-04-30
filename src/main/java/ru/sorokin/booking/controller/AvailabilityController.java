@@ -21,11 +21,14 @@ public class AvailabilityController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SuitcaseDto>> getAvailabilitySuitcases(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+    public ResponseEntity<SuitcaseDto> getAvailabilitySuitcases(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         List<SuitcaseDto> availableSuitcases = availabilityService.getAvailableSuitcases(
                 startDate,
                 endDate);
-        return ResponseEntity.ok(availableSuitcases);
+        if (!availableSuitcases.isEmpty()) {
+            return ResponseEntity.ok(availableSuitcases.getFirst());
+        }
+        return ResponseEntity.noContent().build();
     }
 
 }
