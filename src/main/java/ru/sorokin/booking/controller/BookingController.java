@@ -10,6 +10,7 @@ import ru.sorokin.booking.service.AvailabilityService;
 import ru.sorokin.booking.service.BookingService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -32,7 +33,10 @@ public class BookingController {
     @GetMapping("/check")
     public ResponseEntity<BookingStatus> checkStatus(@RequestParam UUID uuid) {
         Booking booking = bookingService.getBooking(uuid);
-        return ResponseEntity.ok(booking.getStatus());
+        if (Objects.nonNull(booking)) {
+            return ResponseEntity.ok(booking.getStatus());
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/check/phone")
