@@ -36,7 +36,7 @@ public class RabbitMQConfiguration {
         Map<String, Object> args = new HashMap<>();
         args.put("x-dead-letter-exchange", DLX_EXCHANGE);
         args.put("x-dead-letter-routing-key", "dlx.order");
-        args.put("x-message-ttl", 10000); // 10 минут в миллисекундах
+        args.put("x-message-ttl", 3_600_000); // 10 минут в миллисекундах
         return new Queue(ORDER_QUEUE, true, false, false, args);
     }
 
