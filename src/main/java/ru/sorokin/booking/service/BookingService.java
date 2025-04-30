@@ -57,7 +57,7 @@ public class BookingService {
                         OffsetDateTime.now())
         );
         orderProducer.sendOrderForDelayedCheck(booking.getId());
-        orderProducer.sendNotification("Оформлен новый заказ " + booking.getId() + bookingRequestDto.getPhoneNumber() + " " + bookingRequestDto.getFullName());
+        orderProducer.sendNotification("Оформлен новый заказ " + booking.getId() + " " + bookingRequestDto.getPhoneNumber() + " " + bookingRequestDto.getFullName());
         return booking;
     }
 
