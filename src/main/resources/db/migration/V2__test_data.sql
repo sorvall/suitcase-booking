@@ -10,12 +10,3 @@ VALUES
   ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'SN-001', 'AVAILABLE', 'Москва', 'Без дефектов'),
   ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'SN-002', 'AVAILABLE', 'Москва', 'Сломана ручка'),
   ('cccccccc-cccc-cccc-cccc-cccccccccccc', 'SN-003', 'REPAIR', 'Склад', 'На ремонте');
-
--- Тестовые бронирования
-INSERT INTO bookings (id, user_id, suitcase_id, start_date, end_date, status, created_at, updated_at)
-VALUES
-  ('d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1',
-   '11111111-1111-1111-1111-111111111111',
-   'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-   '2025-05-01', '2025-05-10', 'CONFIRMED',
-   now(), now());
