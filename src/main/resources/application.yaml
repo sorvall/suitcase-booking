@@ -4,7 +4,21 @@ server:
 spring:
   application:
     name: suitcase-booking
+  boot:
+    admin:
+      client:
+        url: http://103.74.93.74:80  # Адрес Spring Boot Admin
+        instance:
+          name: suitcase-booking  # Имя сервиса в админке
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # Открывает все эндпоинты
+  endpoint:
+    health:
+      show-details: always
   main:
     banner-mode: off
 
