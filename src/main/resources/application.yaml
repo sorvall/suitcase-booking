@@ -7,7 +7,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://0.0.0.0:80  # Адрес Spring Boot Admin
+        url: http://0.0.0.0:80/admin  # Адрес Spring Boot Admin
         instance:
           name: suitcase-booking  # Имя сервиса в админке
 
