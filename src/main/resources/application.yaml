@@ -11,17 +11,6 @@ spring:
         instance:
           name: suitcase-booking  # Имя сервиса в админке
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"  # Открывает все эндпоинты
-  endpoint:
-    health:
-      show-details: always
-  main:
-    banner-mode: off
-
   datasource:
     url: jdbc:postgresql://103.74.93.74:5432/postgres
     username: postgres
@@ -67,4 +56,16 @@ management:
     suffix: .html
     mode: HTML
     encoding: UTF-8
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # Открывает все эндпоинты
+  endpoint:
+    health:
+      show-details: always
+  main:
+    banner-mode: off
 
