@@ -7,7 +7,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://bikeboxgo.ru  # Адрес сервера SBA
+        url: http://bikeboxgo.ru:8085  # Адрес сервера SBA
         instance:
           name: suitcase-booking  # Уникальное имя для каждого сервиса!
   datasource:
