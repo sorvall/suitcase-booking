@@ -7,9 +7,17 @@ spring:
   boot:
     admin:
       client:
-        url: http://suitcase-gateway:80/admin  # Адрес Spring Boot Admin
+        url: http://suitcase-admin:8085  # Адрес сервера SBA
         instance:
-          name: suitcase-booking  # Имя сервиса в админке
+          name: suitcase-gateway  # Уникальное имя для каждого сервиса!
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env, loggers
+  endpoint:
+    health:
+      show-details: always
 
   datasource:
     url: jdbc:postgresql://103.74.93.74:5432/postgres
@@ -57,15 +65,4 @@ spring:
     mode: HTML
     encoding: UTF-8
 
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"  # Открывает все эндпоинты
-  endpoint:
-    health:
-      show-details: always
-  main:
-    banner-mode: off
 
