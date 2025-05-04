@@ -10,15 +10,6 @@ spring:
         url: http://suitcase-admin:8085  # Адрес сервера SBA
         instance:
           name: suitcase-gateway  # Уникальное имя для каждого сервиса!
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, info, metrics, env, loggers
-  endpoint:
-    health:
-      show-details: always
-
   datasource:
     url: jdbc:postgresql://103.74.93.74:5432/postgres
     username: postgres
@@ -38,21 +29,21 @@ management:
     username: admin
     password: admin
 
-    jpa:
-      hibernate:
-        ddl-auto: none
+  jpa:
+    hibernate:
+      ddl-auto: none
       show-sql: true
       properties:
         hibernate:
           format_sql: true
           dialect: org.hibernate.dialect.PostgreSQLDialect
 
-    flyway:
-      enabled: true
-      locations: classpath:db/migration
-      baseline-on-migrate: true
-      validate-on-migrate: true
-      clean-disabled: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+    clean-disabled: true
 
   logging:
     level:
@@ -65,4 +56,12 @@ management:
     mode: HTML
     encoding: UTF-8
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env, loggers
+  endpoint:
+    health:
+      show-details: always
 
