@@ -6,6 +6,7 @@ import ru.sorokin.booking.enums.BookingStatus;
 import ru.sorokin.booking.handler.BookingHandler;
 import ru.sorokin.booking.service.BookingService;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -19,7 +20,7 @@ public class BookingHandlerImpl implements BookingHandler {
     @Override
     public void handle(UUID bookingId) {
         Booking booking = bookingService.getBooking(bookingId);
-        if (booking.getStatus().equals(BookingStatus.PENDING)) {
+        if (Objects.nonNull(booking) && booking.getStatus().equals(BookingStatus.PENDING)) {
             booking.setStatus(BookingStatus.CANCELLED);
             bookingService.update(booking);
         }

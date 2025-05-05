@@ -1,10 +1,11 @@
 package ru.sorokin.booking.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.sorokin.booking.dto.BookingRequestDto;
 import ru.sorokin.booking.dto.BookingResponseDto;
 import ru.sorokin.booking.entity.Booking;
-import ru.sorokin.booking.entity.ExtraService;
 import ru.sorokin.booking.entity.Suitcase;
 import ru.sorokin.booking.entity.User;
 import ru.sorokin.booking.enums.BookingStatus;
@@ -22,6 +23,8 @@ import java.util.UUID;
 
 @Service
 public class BookingService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BookingService.class);
+
     private final BookingRepository bookingRepository;
     private final SuitcaseRepository suitcaseRepository;
     private final UserRepository userRepository;
@@ -68,7 +71,8 @@ public class BookingService {
         if (order.isPresent()) {
             return order.get();
         }
-        throw new NotFoundException("Cannot found booking with UUID " + orderUUID);
+        LOGGER.error("Cannot found booking with UUID " + orderUUID);
+        return null;
     }
 
     public Booking update(Booking booking) {
