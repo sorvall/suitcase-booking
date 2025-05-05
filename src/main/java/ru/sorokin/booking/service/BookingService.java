@@ -1,21 +1,20 @@
 package ru.sorokin.booking.service;
 
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import ru.sorokin.booking.dto.BookingRequestDto;
 import ru.sorokin.booking.dto.BookingResponseDto;
-import ru.sorokin.booking.dto.SuitcaseDto;
 import ru.sorokin.booking.entity.Booking;
+import ru.sorokin.booking.entity.ExtraService;
 import ru.sorokin.booking.entity.Suitcase;
 import ru.sorokin.booking.entity.User;
 import ru.sorokin.booking.enums.BookingStatus;
+import ru.sorokin.booking.enums.ExtraServiceType;
 import ru.sorokin.booking.exception.NotFoundException;
 import ru.sorokin.booking.order.OrderProducer;
 import ru.sorokin.booking.repository.BookingRepository;
 import ru.sorokin.booking.repository.SuitcaseRepository;
 import ru.sorokin.booking.repository.UserRepository;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -23,18 +22,18 @@ import java.util.UUID;
 
 @Service
 public class BookingService {
-    private final AvailabilityService availabilityService;
     private final BookingRepository bookingRepository;
     private final SuitcaseRepository suitcaseRepository;
     private final UserRepository userRepository;
     private final OrderProducer orderProducer;
+    private final ExtraServiceService extraServiceService;
 
-    public BookingService(AvailabilityService availabilityService, BookingRepository bookingRepository, SuitcaseRepository suitcaseRepository, UserRepository userRepository, OrderProducer orderProducer) {
-        this.availabilityService = availabilityService;
+    public BookingService(BookingRepository bookingRepository, SuitcaseRepository suitcaseRepository, UserRepository userRepository, OrderProducer orderProducer, ExtraServiceService extraServiceService) {
         this.bookingRepository = bookingRepository;
         this.suitcaseRepository = suitcaseRepository;
         this.userRepository = userRepository;
         this.orderProducer = orderProducer;
+        this.extraServiceService = extraServiceService;
     }
 
     public Booking createBooking(BookingRequestDto bookingRequestDto) {
@@ -56,18 +55,13 @@ public class BookingService {
                         BookingStatus.PENDING,
                         OffsetDateTime.now())
         );
+        if (bookingRequestDto.isExtraService()) {
+            extraServiceService.addExtraService(booking, ExtraServiceType.DELIVERY);
+        }
         orderProducer.sendOrderForDelayedCheck(booking.getId());
-        orderProducer.sendNotification("Оформлен новый заказ " + booking.getId() + " " + bookingRequestDto.getPhoneNumber() + " " + bookingRequestDto.getFullName());
+        orderProducer.sendNotification("Оформлен новый заказ " + booking.getId() + " " + bookingRequestDto.getPhoneNumber() + " " + bookingRequestDto.getFullName() + " Доставка " + bookingRequestDto.isExtraService());
         return booking;
     }
-
-/*    public Booking getStatus(UUID orderUUID) {
-        Optional<Booking> order = bookingRepository.findById(orderUUID);
-        if (order.isPresent()) {
-            return order.get();
-        }
-        throw new NotFoundException("Cannot found booking with UUID " + orderUUID);
-    }*/
 
     public Booking getBooking(UUID orderUUID) {
         Optional<Booking> order = bookingRepository.findById(orderUUID);

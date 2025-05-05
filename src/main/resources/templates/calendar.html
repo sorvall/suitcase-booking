@@ -1,82 +1,127 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png">
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Система аренды чемоданов</title>
+    <meta name="description" content="Арендуйте велочемодан в Москве от BikeBoxGo. Безопасная перевозка велосипедов, удобное бронирование, низкие цены." />
+    <meta name="keywords" content="аренда велочемоданов, велобокс, перевозка велосипеда, велочемодан москва" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://bikeboxgo.ru/" />
+    <title>Аренда велочемоданов | Безопасная перевозка велосипедов в самолёте | BikeBoxGo</title>
     <style>
         :root {
-            --primary-color: #6c5ce7;
-            --secondary-color: #5649c2;
-            --accent-color: #a29bfe;
-            --light-color: #f8f9fb;
-            --dark-color: #2d3436;
-            --success-color: #00b894;
-            --warning-color: #fdcb6e;
-            --danger-color: #d63031;
-            --completed-color: #b2bec3;
-            --border-radius: 10px;
-            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --primary-color: #FFCC00;
+            --secondary-color: #000000;
+            --accent-color: #FFDB4D;
+            --light-color: #f5f5f6;
+            --dark-color: #000000;
+            --success-color: #00B956;
+            --warning-color: #FF9C00;
+            --danger-color: #FF3333;
+            --completed-color: #7F8285;
+            --border-radius: 8px;
+            --box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.2s ease;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'YS Text', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            background-color: #fdfdfd;
+            background-color: #FFFFFF;
             color: var(--dark-color);
-            line-height: 1.6;
-            padding: 20px;
-            background-image: linear-gradient(135deg, #f5f7fa 0%, #f8f9fb 100%);
+            line-height: 1.5;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            padding: 20px 0;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+            margin-bottom: 12px;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            color: rgba(0,0,0,0.7);
+            max-width: 600px;
+            margin: 0 auto 16px;
+        }
+
+        .header-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-link:hover {
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .contact-link i {
+            margin-right: 8px;
+            font-size: 18px;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px;
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            padding: 0 24px 24px;
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.03);
         }
 
-        h1, h2, h3 {
+        h2, h3 {
             color: var(--secondary-color);
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
             z-index: 1;
             font-weight: 500;
         }
 
-        h1 {
-            font-size: 2.4rem;
-            margin-bottom: 30px;
-            letter-spacing: -0.5px;
-        }
-
-        h1::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
-            margin: 15px auto 0;
-            border-radius: 2px;
-            opacity: 0.8;
-        }
-
         .tabs {
             display: flex;
-            margin-bottom: 30px;
-            border-bottom: none;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #E6E6E6;
             justify-content: center;
             position: relative;
             z-index: 1;
@@ -84,42 +129,42 @@
         }
 
         .tab {
-            padding: 12px 20px;
+            padding: 12px 16px;
             cursor: pointer;
             border: none;
             background: transparent;
             font-weight: 500;
-            color: #636e72;
+            color: #7F8285;
             transition: var(--transition);
             position: relative;
-            margin: 0 5px;
-            border-radius: var(--border-radius);
+            margin: 0;
+            border-radius: 0;
             font-size: 15px;
         }
 
         .tab.active {
-            color: var(--primary-color);
-            background-color: rgba(108, 92, 231, 0.08);
+            color: var(--secondary-color);
+            font-weight: 500;
         }
 
         .tab.active::after {
             content: '';
             position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40%;
-            height: 3px;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
             background: var(--primary-color);
-            border-radius: 3px;
-            opacity: 0.6;
+            border-radius: 0;
+            opacity: 1;
         }
 
         .tab-content {
             display: none;
-            padding: 25px 0 10px;
+            padding: 20px 0;
             position: relative;
             z-index: 1;
+            width: 100%;
         }
 
         .tab-content.active {
@@ -127,17 +172,22 @@
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
             position: relative;
+            width: 100%;
         }
 
         label {
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             font-weight: 500;
-            color: #57606f;
+            color: #000000;
             font-size: 15px;
+            text-align: left;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         input[type="date"],
@@ -145,79 +195,81 @@
         input[type="tel"] {
             width: 100%;
             max-width: 320px;
-            padding: 14px 18px;
-            border: 1px solid #dfe6e9;
+            padding: 12px 16px;
+            border: 1px solid #E6E6E6;
             border-radius: var(--border-radius);
             font-size: 15px;
             transition: var(--transition);
             margin: 0 auto;
             display: block;
-            background-color: #f8f9fb;
-            color: #2d3436;
+            background-color: white;
+            color: #000000;
         }
 
         input[type="date"]:focus,
         input[type="text"]:focus,
         input[type="tel"]:focus {
             outline: none;
-            border-color: var(--accent-color);
+            border-color: var(--primary-color);
             background-color: white;
-            box-shadow: 0 0 0 3px rgba(162, 155, 254, 0.2);
+            box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.2);
         }
 
         #uuidInput {
-            background-color: #f1f3f6;
-            cursor: not-allowed;
+            display: none;
         }
 
         button {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
+            background: var(--primary-color);
+            color: var(--secondary-color);
             border: none;
-            padding: 14px 32px;
+            padding: 12px 24px;
             font-size: 15px;
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
             display: block;
-            margin: 30px auto;
+            margin: 24px auto;
             font-weight: 500;
-            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15);
+            box-shadow: none;
             position: relative;
             overflow: hidden;
             border: none;
+            width: 100%;
+            max-width: 320px;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(108, 92, 231, 0.2);
+            background: var(--accent-color);
+            transform: none;
+            box-shadow: none;
         }
 
         button.check-btn {
-            background: linear-gradient(135deg, var(--warning-color), #e17055);
-            color: #2d3436;
+            background: #E6E6E6;
+            color: var(--secondary-color);
         }
 
         button.check-btn:hover {
-            box-shadow: 0 6px 16px rgba(253, 203, 110, 0.2);
+            background: #D9D9D9;
         }
 
         hr {
             border: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(99, 110, 114, 0.1), transparent);
-            margin: 40px auto;
-            max-width: 70%;
+            background: #E6E6E6;
+            margin: 24px auto;
+            max-width: 320px;
         }
 
         #availabilityResult {
-            margin-top: 30px;
+            margin-top: 20px;
             text-align: center;
         }
 
         .id-item {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 10px 16px;
             margin: 8px;
             background-color: white;
             border-radius: var(--border-radius);
@@ -225,19 +277,18 @@
             transition: var(--transition);
             font-weight: 500;
             color: var(--primary-color);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
-            border: 1px solid rgba(108, 92, 231, 0.15);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 204, 0, 0.3);
         }
 
         .id-item:hover {
-            background-color: rgba(108, 92, 231, 0.08);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.1);
+            background-color: rgba(255, 204, 0, 0.1);
+            border-color: var(--primary-color);
         }
 
         .status-box {
-            margin: 30px auto;
-            padding: 25px;
+            margin: 20px auto;
+            padding: 20px;
             border-radius: var(--border-radius);
             text-align: center;
             max-width: 500px;
@@ -251,7 +302,7 @@
 
         .status-box.show {
             display: block;
-            animation: fadeIn 0.4s ease-out;
+            animation: fadeIn 0.3s ease-out;
         }
 
         @keyframes fadeIn {
@@ -261,29 +312,33 @@
 
         .status-box.pending {
             border-left-color: var(--warning-color);
+            background-color: #FFF8E6;
         }
 
         .status-box.confirmed {
             border-left-color: var(--success-color);
+            background-color: #E6F7ED;
         }
 
         .status-box.completed {
             border-left-color: var(--completed-color);
+            background-color: #F0F2F3;
         }
 
         .status-box.cancelled {
             border-left-color: var(--danger-color);
+            background-color: #FFEBEB;
         }
 
         .loading {
             display: inline-block;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(0,0,0,.1);
             border-radius: 50%;
             border-top-color: var(--primary-color);
             animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
+            margin-right: 8px;
             vertical-align: middle;
         }
 
@@ -292,26 +347,25 @@
         }
 
         .payment-info {
-            margin: 15px 0;
-            font-size: 16px;
-            padding: 8px 15px;
+            margin: 12px 0;
+            font-size: 14px;
+            padding: 8px 12px;
             border-radius: var(--border-radius);
             display: inline-block;
-            background: rgba(253, 203, 110, 0.1);
+            background: rgba(255, 204, 0, 0.1);
             color: var(--dark-color);
         }
 
         .payment-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px dashed #dfe6e9;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed #E6E6E6;
         }
 
-        /* Стили для карусели */
         .carousel {
             position: relative;
             max-width: 600px;
-            margin: 30px auto;
+            margin: 24px auto;
             overflow: hidden;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -319,7 +373,7 @@
 
         .carousel-inner {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform 0.3s ease;
         }
 
         .carousel-item {
@@ -337,8 +391,8 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 60px;
-            background: transparent;
+            width: 48px;
+            background: rgba(0,0,0,0.2);
             border: none;
             cursor: pointer;
             z-index: 10;
@@ -355,45 +409,39 @@
 
         .carousel-control.prev {
             left: 0;
-            background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
         }
 
         .carousel-control.next {
             right: 0;
-            background: linear-gradient(270deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
         }
 
         .carousel-control::before {
             content: '';
-            width: 30px;
-            height: 30px;
-            border-top: 3px solid white;
-            border-left: 3px solid white;
+            width: 24px;
+            height: 24px;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
             transform: rotate(-45deg);
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
         }
 
         .carousel-control.next::before {
             transform: rotate(135deg);
         }
 
-        .carousel-control:hover::before {
-            border-color: var(--accent-color);
-        }
-
         .carousel-indicators {
             position: absolute;
-            bottom: 20px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 8px;
+            gap: 6px;
             z-index: 10;
         }
 
         .carousel-indicator {
-            width: 40px;
-            height: 3px;
+            width: 32px;
+            height: 2px;
             background-color: rgba(255, 255, 255, 0.5);
             cursor: pointer;
             border: none;
@@ -421,7 +469,7 @@
         .description {
             max-width: 600px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 16px;
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -429,29 +477,148 @@
         }
 
         .description p {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            font-size: 15px;
         }
 
         .description ul {
             padding-left: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .description li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .booking-section {
+            display: none;
+        }
+
+        .booking-section.show {
+            display: block;
+        }
+
+        .available-message {
+            color: var(--success-color);
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        .contact-phone {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        /* Модальное окно */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .modal-content {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            flex: 1;
+            max-width: 120px;
+        }
+
+        .modal-btn-primary {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .modal-btn-primary:hover {
+            background-color: var(--accent-color);
+        }
+
+        .modal-btn-secondary {
+            background-color: #E6E6E6;
+            color: var(--secondary-color);
+        }
+
+        .modal-btn-secondary:hover {
+            background-color: #D9D9D9;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
+            .header {
+                padding: 16px 0;
             }
 
-            h1 {
-                font-size: 2rem;
+            .header-title {
+                font-size: 24px;
+            }
+
+            .header-subtitle {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 0 16px 16px;
             }
 
             .tab {
-                padding: 10px 15px;
+                padding: 10px 12px;
                 font-size: 14px;
             }
 
@@ -461,51 +628,84 @@
 
             .carousel-control {
                 opacity: 1;
-                width: 40px;
+                width: 36px;
             }
 
             .carousel-control::before {
-                width: 20px;
-                height: 20px;
-                border-width: 2px;
+                width: 18px;
+                height: 18px;
+            }
+
+            .modal {
+                padding: 20px;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 25px 15px;
+            .header {
+                padding: 12px 0;
             }
 
-            h1 {
-                font-size: 1.8rem;
+            .logo {
+                height: 60px;
+            }
+
+            .header-title {
+                font-size: 22px;
+            }
+
+            .container {
+                padding: 0 12px 12px;
             }
 
             input[type="date"],
             input[type="text"],
             input[type="tel"] {
-                padding: 12px 15px;
+                padding: 10px 14px;
             }
 
             button {
-                padding: 12px 25px;
+                padding: 12px;
             }
 
             .tabs {
-                justify-content: space-around;
+                justify-content: space-between;
             }
 
             .tab {
-                margin: 0;
-                padding: 10px;
-                font-size: 13px;
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .modal-btn {
+                max-width: 100%;
             }
         }
     </style>
+    <!-- Иконка Telegram для кнопки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<div class="container">
-    <h1>Аренда чемоданов</h1>
+<div class="header">
+    <div class="header-content">
+        <img src="images/log.png" alt="BikeBoxGo Logo" class="logo">
+        <h1 class="header-title">Аренда велочемоданов</h1>
+        <p class="header-subtitle">Надёжная защита вашего велосипеда при авиаперелётах</p>
+        <div class="header-contact">
+            <a href="https://t.me/bikeboxgo" class="contact-link" target="_blank">
+                <i class="fab fa-telegram"></i>
+                @bikeboxgo
+            </a>
+        </div>
+    </div>
+</div>
 
+<div class="container">
     <div class="tabs">
         <div class="tab active" data-tab="main">Аренда</div>
         <div class="tab" data-tab="info">О чемодане</div>
@@ -536,15 +736,11 @@
 
         <hr>
 
-        <section>
+        <section id="bookingSection" class="booking-section">
             <h2>Оформление бронирования</h2>
 
             <form id="bookingForm">
-                <div class="form-group">
-                    <label for="uuidInput">Выберите чемодан:</label>
-                    <input type="text" id="uuidInput" name="uuid" required disabled
-                           placeholder="Дважды кликните на ID чемодана">
-                </div>
+                <input type="text" id="uuidInput" name="uuid" required disabled style="display: none;">
 
                 <div class="form-group">
                     <label for="fullName">Ваше имя:</label>
@@ -572,30 +768,41 @@
     <!-- Вкладка с информацией о чемодане -->
     <div id="info" class="tab-content">
         <div class="description">
-            <h2>🚴‍♂️ Велочемодан для транспортировки велосипеда</h2>
-            <p>Предлагается в аренду велочемодан для транспортировки велосипеда.</p>
-            <p>По сумме сторон не превышает 203 см, можно сдать в багаж без дополнительной оплаты (уточняйте в авиакомпании или в аэропорте).</p>
-            <p>В чемодан помещается:</p>
+            <h2>🚴 Профессиональный велочемодан для авиаперевозок</h2>
+            <p>Защитите свой велосипед во время перелёта с нашими специальными чемоданами, разработанными для безопасной транспортировки.</p>
+            <p><strong>Почему стоит арендовать наш чемодан:</strong></p>
             <ul>
-                <li>Велосипед</li>
-                <li>Колёса</li>
-                <li>Насос</li>
-                <li>Шлем</li>
-                <li>Другое велооборудование</li>
+                <li>Габариты соответствуют требованиям авиакомпаний (до 203 см по сумме сторон)</li>
+                <li>Прочная конструкция защищает от ударов и царапин</li>
+                <li>Вмещает велосипед, колёса, шлем и аксессуары</li>
+                <li>Экономия до 50% по сравнению с покупкой</li>
+                <li>Доставка и помощь с упаковкой</li>
             </ul>
-            <p>❗ В чемодан помещаются все виды велосипедов, необходимо проверить размеры, указанные на фото.</p>
+            <p>Идеальное решение для соревнований, велопутешествий и переездов. Ваш велосипед прибудет в целости и сохранности!</p>
+            <p>Телефон для связи: <a href="https://t.me/bikeboxgo" class="contact-phone" target="_blank">
+                <i class="fab fa-telegram"></i> 8 (965) 408-07-54
+            </a></p>
         </div>
 
         <div class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item">
-                    <img src="images/1.jpeg" alt="Велочемодан - фото 1">
+                    <img src="images/1.jpg" alt="Велочемодан - фото 1">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/2.jpeg" alt="Велочемодан - фото 2">
+                    <img src="images/2.jpg" alt="Велочемодан - фото 2">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/3.jpeg" alt="Велочемодан - фото 3">
+                    <img src="images/3.jpg" alt="Велочемодан - фото 3">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/4.jpg" alt="Велочемодан - фото 4">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/5.jpg" alt="Велочемодан - фото 5">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/6.jpg" alt="Велочемодан - фото 6">
                 </div>
             </div>
             <button class="carousel-control prev" aria-label="Предыдущий слайд"></button>
@@ -612,13 +819,27 @@
     <div id="status" class="tab-content">
         <div class="form-group">
             <label for="checkUuidInput">Номер брони:</label>
-            <input type="text" id="checkUuidInput" placeholder="Введите UUID">
+            <input type="text" id="checkUuidInput" placeholder="Введите номер брони">
         </div>
 
         <button id="checkOrderBtn" class="check-btn">Проверить статус</button>
 
         <div id="checkOrderResult" class="status-box">
             <div id="orderStatusContent"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для подтверждения доставки -->
+<div class="modal-overlay" id="deliveryModal">
+    <div class="modal">
+        <h3 class="modal-title">Нужна доставка велочемодана?</h3>
+        <div class="modal-content">
+            <p>Пожалуйста, уточните, требуется ли Вам доставка велочемодана? Доставка осуществляется по г. Москва, стоимость 750 рублей.</p>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-primary" id="confirmDeliveryBtn">Да</button>
+            <button class="modal-btn modal-btn-secondary" id="cancelDeliveryBtn">Нет</button>
         </div>
     </div>
 </div>
@@ -723,7 +944,7 @@
             startCarouselInterval();
         });
 
-        // Остальной JavaScript код
+        // Обработка ввода телефона
         const phoneInput = document.getElementById('phone');
         if (phoneInput) {
             phoneInput.addEventListener('input', function(e) {
@@ -827,22 +1048,33 @@
             });
         }
 
+        // Проверка доступности чемоданов
         async function checkAvailability() {
             const startDate = startDateInput.value;
             const endDate = endDateInput.value;
             const resultContainer = document.getElementById("availabilityResult");
+            const bookingSection = document.getElementById("bookingSection");
+            const uuidInput = document.getElementById("uuidInput");
 
             if (!startDate || !endDate || !resultContainer) return;
 
             if (endDate < startDate) {
                 resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Дата окончания не может быть раньше даты начала!</p>";
+                bookingSection.classList.remove("show");
                 return;
             }
 
             try {
                 resultContainer.innerHTML = "<div class='loading'></div><p>Проверяем доступность...</p>";
+                bookingSection.classList.remove("show");
 
                 const response = await fetch(`/availability?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`);
+
+                if (response.status === 204) {
+                    resultContainer.innerHTML = "<p>Нет доступных вариантов на выбранные даты</p>";
+                    bookingSection.classList.remove("show");
+                    return;
+                }
 
                 if (!response.ok) {
                     throw new Error(`Ошибка сервера: ${response.status}`);
@@ -852,6 +1084,7 @@
                 displayAvailableItems(data);
             } catch (error) {
                 resultContainer.innerHTML = `<p style='color: var(--danger-color);'>Ошибка: ${error.message}</p>`;
+                bookingSection.classList.remove("show");
                 console.error("Ошибка при проверке доступности:", error);
             }
         }
@@ -861,8 +1094,40 @@
             checkAvailability();
         });
 
-        document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+        // Модальное окно для подтверждения доставки
+        const deliveryModal = document.getElementById('deliveryModal');
+        const confirmDeliveryBtn = document.getElementById('confirmDeliveryBtn');
+        const cancelDeliveryBtn = document.getElementById('cancelDeliveryBtn');
+        let extraServiceValue = false;
+
+        function showDeliveryModal() {
+            deliveryModal.classList.add('active');
+        }
+
+        function hideDeliveryModal() {
+            deliveryModal.classList.remove('active');
+        }
+
+        confirmDeliveryBtn.addEventListener('click', function() {
+            extraServiceValue = true;
+            hideDeliveryModal();
+            processBooking();
+        });
+
+        cancelDeliveryBtn.addEventListener('click', function() {
+            extraServiceValue = false;
+            hideDeliveryModal();
+            processBooking();
+        });
+
+        // Обработчик отправки формы бронирования
+        document.getElementById("bookingForm").addEventListener("submit", function(e) {
             e.preventDefault();
+            showDeliveryModal();
+        });
+
+        // Функция для обработки бронирования после выбора опции доставки
+        async function processBooking() {
             const uuid = document.getElementById("uuidInput").value;
             const startDate = startDateInput.value;
             const endDate = endDateInput.value;
@@ -876,7 +1141,7 @@
             }
 
             if (!uuid) {
-                resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Выберите чемодан из списка!</p>";
+                resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Нет доступного чемодана для бронирования!</p>";
                 resultContainer.className = "status-box show";
                 return;
             }
@@ -903,7 +1168,8 @@
                     startDate: startDate,
                     endDate: endDate,
                     fullName: fullName,
-                    phoneNumber: phoneNumber
+                    phoneNumber: phoneNumber,
+                    extraService: extraServiceValue
                 };
 
                 const response = await fetch('/booking', {
@@ -926,6 +1192,7 @@
                         <p>Период: ${formatDate(startDate)} — ${formatDate(endDate)}</p>
                         <p>Имя: ${fullName}</p>
                         <p>Телефон: ${phoneNumber}</p>
+                        <p>Доставка: ${extraServiceValue ? 'Да' : 'Нет'}</p>
                     `;
                 resultContainer.className = "status-box confirmed show";
 
@@ -947,8 +1214,9 @@
                 resultContainer.className = "status-box show";
                 console.error("Ошибка при бронировании:", error);
             }
-        });
+        }
 
+        // Проверка статуса заказа
         document.getElementById("checkOrderBtn").addEventListener("click", function() {
             const uuid = document.getElementById("checkUuidInput").value.trim();
             if (!uuid) {
@@ -984,7 +1252,7 @@
                 const statusText = getStatusText(status);
 
                 const now = new Date();
-                const paymentDeadline = new Date(now.getTime() + 10 * 60000);
+                const paymentDeadline = new Date(now.getTime() + 3600000);
                 const deadlineString = paymentDeadline.toLocaleTimeString('ru-RU', {
                     hour: '2-digit',
                     minute: '2-digit'
@@ -1000,7 +1268,7 @@
                     statusHtml += `
                         <div class="payment-section">
                             <div class="payment-info">
-                                <p>Необходимо перевести 500 рублей предоплаты по номеру 8 965 4087</p>
+                                <p>Менеджер свяжется с Вами в ближайшее время</p>
                                 <p>Срок оплаты: до ${deadlineString}</p>
                             </div>
                         </div>
@@ -1021,35 +1289,32 @@
             switchTab(statusTab);
         }
 
-        function displayAvailableItems(items) {
+        function displayAvailableItems(item) {
             const container = document.getElementById("availabilityResult");
-            if (!container) {
-                console.error("Контейнер для доступных чемоданов не найден");
+            const bookingSection = document.getElementById("bookingSection");
+            const uuidInput = document.getElementById("uuidInput");
+
+            if (!container || !bookingSection || !uuidInput) {
+                console.error("Не найдены необходимые элементы для отображения доступных чемоданов");
                 return;
             }
 
-            container.innerHTML = "<h3>Доступные чемоданы:</h3>";
+            container.innerHTML = "";
 
-            if (!items || items.length === 0) {
-                container.innerHTML += "<p>Нет доступных вариантов</p>";
+            if (!item || !item.id) {
+                container.innerHTML = "<p>Нет доступных вариантов</p>";
+                bookingSection.classList.remove("show");
                 return;
             }
 
-            items.forEach(item => {
-                if (!item.id) return;
+            container.innerHTML = `
+                <p class="available-message">Чемодан доступен в выбранные даты</p>
+            `;
 
-                const elem = document.createElement("div");
-                elem.className = "id-item";
-                elem.textContent = item.id;
-                elem.addEventListener("dblclick", function() {
-                    const uuidInput = document.getElementById("uuidInput");
-                    if (uuidInput) {
-                        uuidInput.value = item.id;
-                        uuidInput.disabled = false;
-                    }
-                });
-                container.appendChild(elem);
-            });
+            uuidInput.value = item.id;
+            uuidInput.disabled = false;
+
+            bookingSection.classList.add("show");
         }
 
         function showStatusError(container, message) {

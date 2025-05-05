@@ -9,6 +9,7 @@ public class BookingRequestDto {
     private String phoneNumber;
     private LocalDate startDate;
     private LocalDate endDate;
+    private boolean extraService;
 
     public BookingRequestDto() {
     }
@@ -51,5 +52,13 @@ public class BookingRequestDto {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public boolean isExtraService() {
+        return extraService;
+    }
+
+    public void setExtraService(boolean extraService) {
+        this.extraService = extraService;
     }
 }

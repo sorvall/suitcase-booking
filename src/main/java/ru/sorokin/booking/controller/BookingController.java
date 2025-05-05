@@ -6,7 +6,6 @@ import ru.sorokin.booking.dto.BookingRequestDto;
 import ru.sorokin.booking.dto.BookingResponseDto;
 import ru.sorokin.booking.entity.Booking;
 import ru.sorokin.booking.enums.BookingStatus;
-import ru.sorokin.booking.service.AvailabilityService;
 import ru.sorokin.booking.service.BookingService;
 
 import java.util.List;
@@ -16,11 +15,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/booking")
 public class BookingController {
-    private final AvailabilityService availabilityService;
     private final BookingService bookingService;
 
-    public BookingController(AvailabilityService availabilityService, BookingService bookingService) {
-        this.availabilityService = availabilityService;
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
