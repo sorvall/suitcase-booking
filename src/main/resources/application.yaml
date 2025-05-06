@@ -12,8 +12,8 @@ spring:
           name: suitcase-booking  # Уникальное имя для каждого сервиса!
   datasource:
     url: jdbc:postgresql://103.74.93.74:5432/postgres
-    username: postgres
-    password: postgres
+    username: admin
+    password: lPFMUWrH
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -27,7 +27,7 @@ spring:
     host: 103.74.93.74
     port: 5672
     username: admin
-    password: admin
+    password: HyEaPMAr
 
   jpa:
     hibernate:
