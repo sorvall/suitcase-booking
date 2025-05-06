@@ -28,6 +28,7 @@ spring:
     port: 5672
     username: admin
     password: HyEaPMAr
+    virtual-host: /app
 
   jpa:
     hibernate:
