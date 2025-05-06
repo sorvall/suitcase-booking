@@ -30,3 +30,10 @@ CREATE TABLE bookings (
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id),
     CONSTRAINT fk_suitcase FOREIGN KEY (suitcase_id) REFERENCES suitcases (id)
 );
+
+CREATE TABLE extra_service
+(
+    id         UUID PRIMARY KEY,
+    booking_id UUID NOT NULL,
+    type       VARCHAR(50) NOT NULL,
+);
