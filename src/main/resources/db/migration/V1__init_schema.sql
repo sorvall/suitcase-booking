@@ -35,5 +35,5 @@ CREATE TABLE extra_service
 (
     id         UUID PRIMARY KEY,
     booking_id UUID NOT NULL,
-    type       VARCHAR(50) NOT NULL,
+    type       VARCHAR(50) NOT NULL
 );
