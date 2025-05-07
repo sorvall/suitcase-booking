@@ -6,7 +6,6 @@ import ru.sorokin.booking.dto.dashboard.BookingDashboardDto;
 import ru.sorokin.booking.entity.Booking;
 import ru.sorokin.booking.entity.Suitcase;
 import ru.sorokin.booking.enums.BookingStatus;
-import ru.sorokin.booking.enums.SuitcaseStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,17 +20,17 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
 
     @Query("""
-        SELECT new ru.sorokin.booking.dto.dashboard.BookingDashboardDto(
-            s.serialNumber AS serial,
-            u.fullName AS name,
-            u.phone AS phone,
-            b.startDate AS start,
-            b.endDate AS end
-        )
-        FROM Suitcase s
-        JOIN Booking b ON s.id = b.suitcase.id
-        JOIN User u ON b.user.id = u.id
-        WHERE b.status != 'CANCELLED'
-        """)
+            SELECT new ru.sorokin.booking.dto.dashboard.BookingDashboardDto(
+                s.serialNumber AS serial,
+                COALESCE(u.fullName, 'Нет брони') AS name,
+                COALESCE(u.phone, '') AS phone,
+                b.startDate AS start,
+                b.endDate AS end
+            )
+            FROM Suitcase s
+            LEFT JOIN Booking b ON s.id = b.suitcase.id AND b.status != 'CANCELLED'
+            LEFT JOIN User u ON b.user.id = u.id
+            ORDER BY s.serialNumber
+            """)
     List<BookingDashboardDto> getDashboard();
 }
