@@ -30,7 +30,7 @@ public class AvailabilityService {
     }
 
     public List<SuitcaseDto> getAvailableSuitcases(LocalDate startDate, LocalDate endDate) {
-        statisticRepository.save(new Statistic(1, OffsetDateTime.now()));
+        statisticRepository.save(new Statistic(1, OffsetDateTime.now(), startDate, endDate));
         List<Suitcase> allAvailable = suitcaseRepository.findAllByStatus(SuitcaseStatus.AVAILABLE);
 
         List<Booking> conflictingBookings = bookingRepository

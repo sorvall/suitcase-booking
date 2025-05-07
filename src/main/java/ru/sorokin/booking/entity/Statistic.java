@@ -25,12 +25,20 @@ public class Statistic {
     @Column
     private OffsetDateTime updated;
 
+    @Column(nullable = false)
+    private LocalDate startDate;
+
+    @Column(nullable = false)
+    private LocalDate endDate;
+
     public Statistic() {
     }
 
-    public Statistic( Integer amount, OffsetDateTime updated) {
+    public Statistic(Integer amount, OffsetDateTime updated, LocalDate startDate, LocalDate endDate) {
         this.amount = amount;
         this.updated = updated;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public UUID getId() {
@@ -55,5 +63,21 @@ public class Statistic {
 
     public void setUpdated(OffsetDateTime updated) {
         this.updated = updated;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }
