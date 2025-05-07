@@ -10,7 +10,6 @@ import ru.sorokin.booking.entity.Suitcase;
 import ru.sorokin.booking.entity.User;
 import ru.sorokin.booking.enums.BookingStatus;
 import ru.sorokin.booking.enums.ExtraServiceType;
-import ru.sorokin.booking.exception.NotFoundException;
 import ru.sorokin.booking.order.OrderProducer;
 import ru.sorokin.booking.repository.BookingRepository;
 import ru.sorokin.booking.repository.SuitcaseRepository;
