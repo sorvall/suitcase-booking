@@ -31,6 +31,7 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
         FROM Suitcase s
         JOIN Booking b ON s.id = b.suitcase.id
         JOIN User u ON b.user.id = u.id
+        WHERE b.status != 'CANCELLED'
         """)
     List<BookingDashboardDto> getDashboard();
 }
