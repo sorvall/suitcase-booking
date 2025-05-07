@@ -1,11 +1,9 @@
 package ru.sorokin.booking.dto.dashboard;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.UUID;
 
 public class BookingDashboardDto {
-    private UUID id;
+    private String serial;
     private String name;
     private String phone;
     private LocalDate start;
@@ -14,20 +12,20 @@ public class BookingDashboardDto {
     public BookingDashboardDto() {
     }
 
-    public BookingDashboardDto(UUID id, String name, String phone, LocalDate start, LocalDate end) {
-        this.id = id;
+    public BookingDashboardDto(String serial, String name, String phone, LocalDate start, LocalDate end) {
+        this.serial = serial;
         this.name = name;
         this.phone = phone;
         this.start = start;
         this.end = end;
     }
 
-    public UUID getId() {
-        return id;
+    public String getSerial() {
+        return serial;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setSerial(String serial) {
+        this.serial = serial;
     }
 
     public String getName() {

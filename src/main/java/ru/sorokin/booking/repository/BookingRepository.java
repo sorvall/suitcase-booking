@@ -22,7 +22,7 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     @Query("""
         SELECT new ru.sorokin.booking.dto.dashboard.BookingDashboardDto(
-            s.id AS id,
+            s.serialNumber AS serial,
             u.fullName AS name,
             u.phone AS phone,
             b.startDate AS start,
