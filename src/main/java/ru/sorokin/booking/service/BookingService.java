@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.sorokin.booking.dto.BookingRequestDto;
 import ru.sorokin.booking.dto.BookingResponseDto;
+import ru.sorokin.booking.dto.dashboard.BookingDashboardDto;
 import ru.sorokin.booking.entity.Booking;
 import ru.sorokin.booking.entity.Suitcase;
 import ru.sorokin.booking.entity.User;
@@ -81,5 +82,10 @@ public class BookingService {
     public List<BookingResponseDto> getStatusByPhoneNumber(String phoneNumber) {
         return null;
     }
+
+    public List<BookingDashboardDto> getDashboard() {
+        return bookingRepository.getDashboard();
+    }
+
 }
 
