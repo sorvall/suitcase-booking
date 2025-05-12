@@ -8,16 +8,18 @@ public class BookingDashboardDto {
     private String phone;
     private LocalDate start;
     private LocalDate end;
+    private Boolean delivery;
 
     public BookingDashboardDto() {
     }
 
-    public BookingDashboardDto(String serial, String name, String phone, LocalDate start, LocalDate end) {
+    public BookingDashboardDto(String serial, String name, String phone, LocalDate start, LocalDate end, Boolean delivery) {
         this.serial = serial;
         this.name = name;
         this.phone = phone;
         this.start = start;
         this.end = end;
+        this.delivery = delivery;
     }
 
     public String getSerial() {
@@ -58,5 +60,13 @@ public class BookingDashboardDto {
 
     public void setEnd(LocalDate end) {
         this.end = end;
+    }
+
+    public Boolean getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Boolean delivery) {
+        this.delivery = delivery;
     }
 }
