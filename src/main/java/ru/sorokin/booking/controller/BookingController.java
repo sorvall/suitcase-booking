@@ -36,10 +36,4 @@ public class BookingController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/check/phone")
-    public ResponseEntity<List<BookingResponseDto>> checkStatusByPhone(@RequestParam String phoneNumber) {
-        List<BookingResponseDto> statusByPhoneNumber = bookingService.getStatusByPhoneNumber(phoneNumber);
-        return ResponseEntity.ok(statusByPhoneNumber);
-    }
-
 }

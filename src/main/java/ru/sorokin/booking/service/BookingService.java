@@ -15,6 +15,7 @@ import ru.sorokin.booking.order.OrderProducer;
 import ru.sorokin.booking.repository.BookingRepository;
 import ru.sorokin.booking.repository.SuitcaseRepository;
 import ru.sorokin.booking.repository.UserRepository;
+import ru.sorokin.booking.util.NotificationTemplates;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -62,7 +63,7 @@ public class BookingService {
             extraServiceService.addExtraService(booking, ExtraServiceType.DELIVERY);
         }
         orderProducer.sendOrderForDelayedCheck(booking.getId());
-        orderProducer.sendNotification("Оформлен новый заказ " + booking.getId() + " " + bookingRequestDto.getPhoneNumber() + " " + bookingRequestDto.getFullName() + " Доставка " + bookingRequestDto.isExtraService());
+        orderProducer.sendNotification(getMessage(booking, bookingRequestDto));
         return booking;
     }
 
@@ -85,6 +86,19 @@ public class BookingService {
 
     public List<BookingDashboardDto> getDashboard() {
         return bookingRepository.getDashboard();
+    }
+
+    // TODO: сделать рефакторинг
+    private String getMessage(Booking booking, BookingRequestDto bookingRequestDto) {
+        return String.format(
+                NotificationTemplates.BOOKING_CREATED_TEMPLATE,
+                booking.getId(),
+                booking.getStartDate(),
+                booking.getEndDate(),
+                bookingRequestDto.getPhoneNumber(),
+                bookingRequestDto.getFullName(),
+                bookingRequestDto.isExtraService() ? "Да" : "Нет"
+        );
     }
 
 }
