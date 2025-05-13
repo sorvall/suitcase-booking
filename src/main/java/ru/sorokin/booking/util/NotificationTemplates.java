@@ -6,5 +6,5 @@ public class NotificationTemplates {
     }
 
     public static final String BOOKING_CREATED_TEMPLATE =
-            "Оформлен новый заказ %d с %s по %s %s %s Доставка %s";
+            "Оформлен новый заказ %s с %s по %s %s %s Доставка %s";
 }
