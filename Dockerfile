@@ -1,6 +1,8 @@
 # Используем официальный образ OpenJDK
 FROM openjdk:21-jdk-slim
 
+ENV TZ=Europe/Moscow
+
 # Указываем рабочую директорию в контейнере
 WORKDIR /app
 
