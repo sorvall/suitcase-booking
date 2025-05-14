@@ -1,7 +1,6 @@
 package ru.sorokin.booking.service;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import ru.sorokin.booking.handler.BookingHandler;
 
 import java.util.List;

@@ -1,12 +1,10 @@
 package ru.sorokin.booking.handler.impl;
 
 import org.springframework.stereotype.Component;
-import ru.sorokin.booking.entity.Booking;
 import ru.sorokin.booking.enums.BookingStatus;
 import ru.sorokin.booking.handler.BookingHandler;
 import ru.sorokin.booking.service.BookingService;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -19,10 +17,11 @@ public class BookingHandlerImpl implements BookingHandler {
 
     @Override
     public void handle(UUID bookingId) {
-        Booking booking = bookingService.getBooking(bookingId);
-        if (Objects.nonNull(booking) && booking.getStatus().equals(BookingStatus.PENDING)) {
-            booking.setStatus(BookingStatus.CANCELLED);
-            bookingService.update(booking);
-        }
+        bookingService.getBooking(bookingId)
+                .filter(b -> b.getStatus() == BookingStatus.PENDING)
+                .ifPresent(b -> {
+                    b.setStatus(BookingStatus.CANCELLED);
+                    bookingService.update(b);
+                });
     }
 }
