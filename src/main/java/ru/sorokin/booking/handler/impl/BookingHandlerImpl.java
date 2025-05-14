@@ -1,5 +1,7 @@
 package ru.sorokin.booking.handler.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.sorokin.booking.enums.BookingStatus;
 import ru.sorokin.booking.handler.BookingHandler;
@@ -9,6 +11,8 @@ import java.util.UUID;
 
 @Component
 public class BookingHandlerImpl implements BookingHandler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BookingHandlerImpl.class);
+
     private final BookingService bookingService;
 
     public BookingHandlerImpl(BookingService bookingService) {
@@ -22,6 +26,7 @@ public class BookingHandlerImpl implements BookingHandler {
                 .ifPresent(b -> {
                     b.setStatus(BookingStatus.CANCELLED);
                     bookingService.update(b);
+                    LOGGER.info("Booking {} cancelled", bookingId);
                 });
     }
 }
