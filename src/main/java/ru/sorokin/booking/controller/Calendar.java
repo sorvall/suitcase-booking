@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Calendar {
     @GetMapping("/calendar")
     public String calendarPage() {
-        return "calendar"; // Вернёт calendar.html из папки templates
+        return "calendar";
     }
 }

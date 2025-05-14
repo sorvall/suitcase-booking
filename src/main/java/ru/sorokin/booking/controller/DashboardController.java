@@ -20,7 +20,6 @@ public class DashboardController {
 
     @GetMapping()
     public ResponseEntity<List<BookingDashboardDto>> getDashboard() {
-        List<BookingDashboardDto> dashboard = bookingService.getBookingDashboard();
-        return ResponseEntity.ok(dashboard);
+        return ResponseEntity.ok(bookingService.getBookingDashboard());
     }
 }

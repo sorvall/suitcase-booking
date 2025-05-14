@@ -25,10 +25,7 @@ public class AvailabilityController {
         List<SuitcaseDto> availableSuitcases = availabilityService.getAvailableSuitcases(
                 startDate,
                 endDate);
-        if (!availableSuitcases.isEmpty()) {
-            return ResponseEntity.ok(availableSuitcases.getFirst());
-        }
-        return ResponseEntity.noContent().build();
+        return availableSuitcases.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(availableSuitcases.getFirst());
     }
 
 }
