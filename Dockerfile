@@ -13,4 +13,4 @@ COPY build/libs/suitcase-booking-0.0.1-SNAPSHOT.jar /app/suitcase-booking.jar
 EXPOSE 8081
 
 # Запускаем JAR файл
-CMD ["java", "-jar", "suitcase-booking.jar"]
+CMD ["java", "-Duser.timezone=Europe/Moscow", "-jar", "suitcase-booking.jar"]
