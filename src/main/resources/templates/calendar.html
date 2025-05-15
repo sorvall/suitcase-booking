@@ -1,15 +1,60 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link rel="icon" type="image/png" href="/images/favicon-32x32.png">
+    <!-- Улучшенные мета-теги для SEO -->
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Арендуйте велочемодан в Москве от BikeBoxGo. Безопасная перевозка велосипедов, удобное бронирование, низкие цены." />
-    <meta name="keywords" content="аренда велочемоданов, велобокс, перевозка велосипеда, велочемодан москва" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://bikeboxgo.ru/" />
-    <title>Аренда велочемоданов | Безопасная перевозка велосипедов в самолёте | BikeBoxGo</title>
+    <title>Аренда велочемодана в Москве | BikeBoxGo - безопасная перевозка велосипеда в самолёте</title>
+    <meta name="description" content="Аренда профессионального велочемодана в Москве всего за 400 руб/сутки. Гарантия безопасной перевозки вашего велосипеда в самолёте. Доставка по Москве.">
+    <meta name="keywords" content="аренда велочемодана, велочемодан москва, перевозка велосипеда, аренда велотранспорта, bikebox аренда">
+    <meta name="robots" content="index, follow">
+
+    <!-- OpenGraph разметка для соцсетей -->
+    <meta property="og:title" content="Аренда велочемодана в Москве | BikeBoxGo">
+    <meta property="og:description" content="Безопасная перевозка вашего велосипеда в самолёте. Аренда от 400 руб/сутки с доставкой по Москве.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bikeboxgo.ru/">
+    <meta property="og:image" content="https://bikeboxgo.ru/images/og-image.jpg">
+
+    <!-- Каноническая ссылка -->
+    <link rel="canonical" href="https://bikeboxgo.ru/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+    <!-- Schema.org разметка -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "BikeBoxGo",
+            "image": "https://bikeboxgo.ru/images/logo.jpg",
+            "description": "Аренда велочемоданов для безопасной перевозки велосипедов в самолёте",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Москва",
+                "addressCountry": "Россия"
+            },
+            "telephone": "+79654080754",
+            "priceRange": "400-1500 руб.",
+            "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                ],
+                "opens": "09:00",
+                "closes": "21:00"
+            }
+        }
+    </script>
+
     <style>
         :root {
             --primary-color: #FFCC00;
@@ -39,6 +84,8 @@
             line-height: 1.5;
             padding: 0;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
@@ -107,6 +154,7 @@
             margin: 0 auto;
             padding: 0 24px 24px;
             position: relative;
+            flex: 1;
         }
 
         h2, h3 {
@@ -171,6 +219,104 @@
             display: block;
         }
 
+        /* Общие стили для информационных вкладок */
+        .info-content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            line-height: 1.6;
+        }
+
+        .info-content h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--secondary-color);
+        }
+
+        .info-content h3 {
+            text-align: left;
+            margin: 25px 0 15px;
+            font-size: 18px;
+            color: var(--secondary-color);
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .info-content h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: 5px;
+            width: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .info-content ul, .info-content ol {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .info-content li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .info-content p {
+            margin-bottom: 15px;
+        }
+
+        .price-highlight {
+            font-weight: bold;
+            color: var(--success-color);
+        }
+
+        .video-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .video-link:hover {
+            background-color: var(--accent-color);
+        }
+
+        .video-link i {
+            margin-right: 8px;
+        }
+
+        .contact-phone {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-phone:hover {
+            background-color: var(--accent-color);
+        }
+
+        .contact-phone i {
+            margin-right: 8px;
+        }
+
+        /* Остальные стили остаются без изменений */
         .form-group {
             margin-bottom: 20px;
             text-align: center;
@@ -466,31 +612,6 @@
             width: 100%;
         }
 
-        .description {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 16px;
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            line-height: 1.6;
-        }
-
-        .description p {
-            margin-bottom: 12px;
-            font-size: 15px;
-        }
-
-        .description ul {
-            padding-left: 20px;
-            margin-bottom: 12px;
-        }
-
-        .description li {
-            margin-bottom: 6px;
-            font-size: 15px;
-        }
-
         .booking-section {
             display: none;
         }
@@ -505,15 +626,40 @@
             margin-top: 8px;
         }
 
-        .contact-phone {
-            display: inline-block;
-            margin-top: 16px;
-            padding: 8px 16px;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
+        .rental-cost {
+            background-color: rgba(255, 204, 0, 0.1);
+            padding: 12px;
             border-radius: var(--border-radius);
+            margin: 16px auto;
+            max-width: 320px;
+            text-align: center;
             font-weight: 500;
-            text-decoration: none;
+        }
+
+        .rental-details {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .booking-summary {
+            margin-top: 16px;
+            padding: 16px;
+            background-color: rgba(0, 185, 86, 0.1);
+            border-radius: var(--border-radius);
+        }
+
+        .booking-summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .booking-summary-total {
+            font-weight: bold;
+            border-top: 1px solid #E6E6E6;
+            padding-top: 8px;
+            margin-top: 8px;
         }
 
         /* Модальное окно */
@@ -543,7 +689,7 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             width: 90%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 24px;
             transform: translateY(20px);
             transition: all 0.3s ease;
@@ -554,10 +700,11 @@
         }
 
         .modal-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 500;
             margin-bottom: 16px;
             text-align: center;
+            color: var(--success-color);
         }
 
         .modal-content {
@@ -572,14 +719,14 @@
         }
 
         .modal-btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: var(--border-radius);
             border: none;
             cursor: pointer;
             font-weight: 500;
             transition: var(--transition);
             flex: 1;
-            max-width: 120px;
+            max-width: 200px;
         }
 
         .modal-btn-primary {
@@ -598,6 +745,108 @@
 
         .modal-btn-secondary:hover {
             background-color: #D9D9D9;
+        }
+
+        .modal-booking-id {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: var(--secondary-color);
+        }
+
+        .modal-contact-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            padding: 2px 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-contact {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
         }
 
         @media (max-width: 768px) {
@@ -638,6 +887,10 @@
 
             .modal {
                 padding: 20px;
+            }
+
+            .footer-section {
+                min-width: 100%;
             }
         }
 
@@ -691,48 +944,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<div class="header">
+<header class="header" itemscope itemtype="https://schema.org/LocalBusiness">
     <div class="header-content">
-        <img src="images/log.png" alt="BikeBoxGo Logo" class="logo">
-        <h1 class="header-title">Аренда велочемоданов</h1>
-        <p class="header-subtitle">Надёжная защита вашего велосипеда при авиаперелётах</p>
+        <img src="images/log.png" alt="BikeBoxGo - аренда велочемоданов в Москве" class="logo" itemprop="logo">
+        <h1 class="header-title" itemprop="name">Аренда велочемоданов | 400 рублей/сутки</h1>
+        <p class="header-subtitle" itemprop="description">Надёжная защита вашего велосипеда при авиаперелётах</p>
         <div class="header-contact">
-            <a href="https://t.me/bikeboxgo" class="contact-link" target="_blank">
+            <a href="https://t.me/Dear_V_S" class="contact-link" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-telegram"></i>
-                @bikeboxgo
+                Перейти в чат
             </a>
         </div>
     </div>
-</div>
+</header>
 
-<div class="container">
-    <div class="tabs">
+<main class="container">
+    <nav class="tabs" aria-label="Навигация по разделам">
         <div class="tab active" data-tab="main">Аренда</div>
         <div class="tab" data-tab="info">О чемодане</div>
-        <div class="tab" data-tab="status">Проверка статуса</div>
-    </div>
+        <div class="tab" data-tab="terms">Условия аренды</div>
+    </nav>
 
     <!-- Основная вкладка (Аренда) -->
-    <div id="main" class="tab-content active">
-        <section>
-            <h2>Проверка доступности</h2>
+    <section id="main" class="tab-content active" itemscope itemtype="https://schema.org/RentalService">
+        <h2>Проверка доступности</h2>
 
-            <form id="availabilityForm">
-                <div class="form-group">
-                    <label for="startDate">Дата начала:</label>
-                    <input type="date" id="startDate" name="startDate" required>
-                </div>
+        <form id="availabilityForm">
+            <div class="form-group">
+                <label for="startDate">Дата начала:</label>
+                <input type="date" id="startDate" name="startDate" required itemprop="availabilityStarts">
+            </div>
 
-                <div class="form-group">
-                    <label for="endDate">Дата окончания:</label>
-                    <input type="date" id="endDate" name="endDate" required>
-                </div>
+            <div class="form-group">
+                <label for="endDate">Дата окончания:</label>
+                <input type="date" id="endDate" name="endDate" required itemprop="availabilityEnds">
+            </div>
 
-                <button type="submit">Проверить доступность</button>
-            </form>
+            <button type="submit">Проверить доступность</button>
+        </form>
 
-            <div id="availabilityResult"></div>
-        </section>
+        <div id="availabilityResult"></div>
 
         <hr>
 
@@ -745,14 +996,19 @@
                 <div class="form-group">
                     <label for="fullName">Ваше имя:</label>
                     <input type="text" id="fullName" name="fullName" required
-                           placeholder="Иванов Иван Иванович">
+                           placeholder="Иванов Иван Иванович" itemprop="customer">
                 </div>
 
                 <div class="form-group">
                     <label for="phone">Телефон:</label>
                     <input type="tel" id="phone" name="phone" required
                            placeholder="+7 ___ ___ __ __"
-                           pattern="\+7\s\d{3}\s\d{3}\s\d{2}\s\d{2}">
+                           pattern="\+7\s\d{3}\s\d{3}\s\d{2}\s\d{2}" itemprop="telephone">
+                </div>
+
+                <div id="rentalCost" class="rental-cost" style="display: none;">
+                    Стоимость аренды: <span id="costValue" itemprop="price">0</span> рублей
+                    <div class="rental-details" id="rentalDetails"></div>
                 </div>
 
                 <input type="hidden" id="bookingStartDate" name="startDate">
@@ -763,46 +1019,71 @@
 
             <div id="bookingResult" class="status-box"></div>
         </section>
-    </div>
+    </section>
 
     <!-- Вкладка с информацией о чемодане -->
-    <div id="info" class="tab-content">
-        <div class="description">
-            <h2>🚴 Профессиональный велочемодан для авиаперевозок</h2>
-            <p>Защитите свой велосипед во время перелёта с нашими специальными чемоданами, разработанными для безопасной транспортировки.</p>
-            <p><strong>Почему стоит арендовать наш чемодан:</strong></p>
-            <ul>
-                <li>Габариты соответствуют требованиям авиакомпаний (до 203 см по сумме сторон)</li>
-                <li>Прочная конструкция защищает от ударов и царапин</li>
-                <li>Вмещает велосипед, колёса, шлем и аксессуары</li>
-                <li>Экономия до 50% по сравнению с покупкой</li>
-                <li>Доставка и помощь с упаковкой</li>
-            </ul>
-            <p>Идеальное решение для соревнований, велопутешествий и переездов. Ваш велосипед прибудет в целости и сохранности!</p>
-            <p>Телефон для связи: <a href="https://t.me/bikeboxgo" class="contact-phone" target="_blank">
-                <i class="fab fa-telegram"></i> 8 (965) 408-07-54
-            </a></p>
+    <section id="info" class="tab-content" itemscope itemtype="https://schema.org/Product">
+        <div class="info-content">
+            <h2 itemprop="name">Профессиональный велочемодан для авиаперевозок</h2>
+
+            <div itemprop="description">
+                <h3>Характеристики</h3>
+                <ul>
+                    <li><strong>Габариты:</strong> <span itemprop="size">135×85×35 см</span> (сумма сторон 203 см - соответствует требованиям авиакомпаний)</li>
+                    <li><strong>Вес:</strong> <span itemprop="weight">~9 кг</span></li>
+                    <li><strong>Материал:</strong> <span itemprop="material">ударопрочный пластик</span></li>
+                    <li><strong>Вместимость:</strong> велосипед, колёса, шлем и аксессуары</li>
+                    <li><strong>Особенности:</strong> внутренние крепления, защитные мягкие вставки</li>
+                </ul>
+
+                <h3>Преимущества</h3>
+                <ul>
+                    <li>Полная защита вашего велосипеда при перелёте</li>
+                    <li>Экономия до 50% по сравнению с покупкой</li>
+                    <li>Удобство транспортировки благодаря колесам и выдвижной ручке</li>
+                    <li>Возможность доставки по Москве</li>
+                </ul>
+
+                <h3>Как использовать</h3>
+
+                <a href="https://rutube.ru/video/31d4e7845a884c927112ac3d91f89e5f/" class="video-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-play-circle"></i> Упаковка велосипеда в велочемодан
+                </a>
+
+                <h3>Контакты</h3>
+                <p>По всем вопросам обращайтесь:</p>
+                <p>
+                    <a href="https://t.me/Dear_V_S" class="contact-phone" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-telegram"></i> Telegram: @bikeboxgo
+                    </a>
+                </p>
+                <p>
+                    <a href="https://wa.me/79654080754" class="contact-phone" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: 8 (965) 408-07-54
+                    </a>
+                </p>
+            </div>
         </div>
 
         <div class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item">
-                    <img src="images/1.jpg" alt="Велочемодан - фото 1">
+                    <img src="images/1.jpg" alt="Велочемодан BikeBoxGo - внешний вид" itemprop="image">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/2.jpg" alt="Велочемодан - фото 2">
+                    <img src="images/2.jpg" alt="Велочемодан BikeBoxGo - внутреннее пространство" itemprop="image">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/3.jpg" alt="Велочемодан - фото 3">
+                    <img src="images/3.jpg" alt="Велочемодан BikeBoxGo - система креплений" itemprop="image">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/4.jpg" alt="Велочемодан - фото 4">
+                    <img src="images/4.jpg" alt="Велочемодан BikeBoxGo - транспортировка" itemprop="image">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/5.jpg" alt="Велочемодан - фото 5">
+                    <img src="images/5.jpg" alt="Велочемодан BikeBoxGo - пример упаковки велосипеда" itemprop="image">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/6.jpg" alt="Велочемодан - фото 6">
+                    <img src="images/6.jpg" alt="Велочемодан BikeBoxGo - замки и ручки" itemprop="image">
                 </div>
             </div>
             <button class="carousel-control prev" aria-label="Предыдущий слайд"></button>
@@ -813,29 +1094,58 @@
                 <button class="carousel-indicator" aria-label="Слайд 3"></button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Вкладка проверки статуса -->
-    <div id="status" class="tab-content">
-        <div class="form-group">
-            <label for="checkUuidInput">Номер брони:</label>
-            <input type="text" id="checkUuidInput" placeholder="Введите номер брони">
+    <!-- Вкладка с условиями аренды -->
+    <section id="terms" class="tab-content">
+        <div class="info-content">
+            <h2>Условия аренды велочемодана</h2>
+
+            <h3>Стоимость и сроки</h3>
+            <ul>
+                <li>Аренда велочемодана стоит <span class="price-highlight">400 рублей в сутки</span></li>
+                <li>Минимальный срок аренды - <span class="price-highlight">7 суток</span></li>
+                <li>Оплата производится при получении чемодана</li>
+            </ul>
+
+            <h3>Доставка</h3>
+            <p>Мы предлагаем удобную доставку по Москве:</p>
+            <ul>
+                <li>Доставка чемодана к вам - <span class="price-highlight">750 рублей</span></li>
+                <li>Возврат чемодана - <span class="price-highlight">750 рублей</span></li>
+            </ul>
+
+            <h3>Как забронировать</h3>
+            <ol>
+                <li>Выберите даты аренды на нашем сайте</li>
+                <li>Заполните форму бронирования</li>
+                <li>Подтвердите бронь через Telegram или WhatsApp</li>
+                <li>Получите чемодан в согласованном месте</li>
+                <li>После использования верните чемодан в том же состоянии</li>
+            </ol>
+
+            <h3>Контакты</h3>
+            <p>По всем вопросам аренды обращайтесь:</p>
+            <p>
+                <a href="https://t.me/Dear_V_S" class="contact-phone" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram"></i> Telegram: @bikeboxgo
+                </a>
+            </p>
+            <p>
+                <a href="https://wa.me/79654080754" class="contact-phone" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp"></i> WhatsApp: 8 (965) 408-07-54
+                </a>
+            </p>
         </div>
-
-        <button id="checkOrderBtn" class="check-btn">Проверить статус</button>
-
-        <div id="checkOrderResult" class="status-box">
-            <div id="orderStatusContent"></div>
-        </div>
-    </div>
-</div>
+    </section>
+</main>
 
 <!-- Модальное окно для подтверждения доставки -->
 <div class="modal-overlay" id="deliveryModal">
     <div class="modal">
         <h3 class="modal-title">Нужна доставка велочемодана?</h3>
         <div class="modal-content">
-            <p>Пожалуйста, уточните, требуется ли Вам доставка велочемодана? Доставка осуществляется по г. Москва, стоимость 750 рублей.</p>
+            <p>Пожалуйста, уточните, требуется ли Вам доставка велочемодана? Доставка осуществляется по г. Москва, стоимость доставки + возврата 1500 рублей.</p>
         </div>
         <div class="modal-buttons">
             <button class="modal-btn modal-btn-primary" id="confirmDeliveryBtn">Да</button>
@@ -843,6 +1153,72 @@
         </div>
     </div>
 </div>
+
+<!-- Модальное окно для подтверждения бронирования -->
+<div class="modal-overlay" id="successModal">
+    <div class="modal">
+        <h3 class="modal-title">Бронирование оформлено!</h3>
+        <div class="modal-content">
+            <p>Ваша заявка успешно принята. Мы свяжемся с вами по указанному телефону для подтверждения заказа.</p>
+            <div class="modal-booking-id" id="modalBookingId"></div>
+            <div class="modal-contact-info">
+                <p>Если у вас есть вопросы, вы можете связаться с нами:</p>
+                <p>
+                    <a href="https://t.me/Dear_V_S" class="contact-phone" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-telegram"></i> Telegram: @bikeboxgo
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-primary" id="closeSuccessModalBtn">ОК</button>
+        </div>
+    </div>
+</div>
+
+<!-- Подвал -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3 class="footer-title">BikeBoxGo</h3>
+            <p>Аренда профессиональных велочемоданов для безопасной перевозки велосипедов в самолёте.</p>
+            <div class="social-links">
+                <a href="https://t.me/Dear_V_S" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+                <a href="https://wa.me/79654080754" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <h3 class="footer-title">Контакты</h3>
+            <ul class="footer-links">
+                <li>
+                    <div class="footer-contact">
+                        <i class="fas fa-phone"></i>
+                        <span>8 (965) 408-07-54</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="footer-contact">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Москва, Россия</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3 class="footer-title">Информация</h3>
+            <ul class="footer-links">
+                <li><a href="#" data-tab="info" class="footer-tab-link">О чемодане</a></li>
+                <li><a href="#" data-tab="terms" class="footer-tab-link">Условия аренды</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 BikeBoxGo. Все права защищены.</p>
+    </div>
+</footer>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -865,6 +1241,22 @@
             });
         });
 
+        // Обработчики для ссылок в подвале
+        document.querySelectorAll('.footer-tab-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tabId = this.getAttribute('data-tab');
+                const tabElement = document.querySelector(`.tab[data-tab="${tabId}"]`);
+                if (tabElement) {
+                    switchTab(tabElement);
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
         // Установка минимальной даты (сегодня)
         const today = new Date().toISOString().split('T')[0];
         const startDateInput = document.getElementById("startDate");
@@ -879,7 +1271,54 @@
                 if (endDateInput.value && endDateInput.value < this.value) {
                     endDateInput.value = '';
                 }
+                calculateRentalCost();
             }
+        });
+
+        endDateInput.addEventListener('change', calculateRentalCost);
+
+        // Функция расчета стоимости аренды
+        function calculateRentalCost() {
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+            const rentalCostElement = document.getElementById('rentalCost');
+            const costValueElement = document.getElementById('costValue');
+            const rentalDetailsElement = document.getElementById('rentalDetails');
+
+            if (!startDate || !endDate) {
+                rentalCostElement.style.display = 'none';
+                return;
+            }
+
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const diffTime = Math.abs(end - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 чтобы включить оба дня
+
+            // Проверка минимального срока аренды
+            if (diffDays < 7) {
+                document.getElementById('availabilityResult').innerHTML =
+                    "<p style='color: var(--danger-color);'>Минимальный срок аренды - 7 дней!</p>";
+                rentalCostElement.style.display = 'none';
+                return;
+            }
+
+            const cost = diffDays * 400;
+            costValueElement.textContent = cost;
+
+            // Добавляем детали расчета
+            rentalDetailsElement.innerHTML = `
+                <div>Период аренды: ${formatDate(startDate)} — ${formatDate(endDate)}</div>
+                <div>Количество дней: ${diffDays}</div>
+                <div>Расчет стоимости: ${diffDays} × 400 руб./сутки = ${cost} руб.</div>
+            `;
+
+            rentalCostElement.style.display = 'block';
+        }
+
+        document.getElementById("availabilityForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            checkAvailability();
         });
 
         // Инициализация карусели
@@ -1064,6 +1503,17 @@
                 return;
             }
 
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const diffTime = Math.abs(end - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+            if (diffDays < 7) {
+                resultContainer.innerHTML = "<p style='color: var(--danger-color);'>Минимальный срок аренды - 7 дней!</p>";
+                bookingSection.classList.remove("show");
+                return;
+            }
+
             try {
                 resultContainer.innerHTML = "<div class='loading'></div><p>Проверяем доступность...</p>";
                 bookingSection.classList.remove("show");
@@ -1089,16 +1539,15 @@
             }
         }
 
-        document.getElementById("availabilityForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-            checkAvailability();
-        });
-
-        // Модальное окно для подтверждения доставки
+        // Модальные окна
         const deliveryModal = document.getElementById('deliveryModal');
         const confirmDeliveryBtn = document.getElementById('confirmDeliveryBtn');
         const cancelDeliveryBtn = document.getElementById('cancelDeliveryBtn');
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModalBtn = document.getElementById('closeSuccessModalBtn');
+        const modalBookingId = document.getElementById('modalBookingId');
         let extraServiceValue = false;
+        let autoCloseTimer;
 
         function showDeliveryModal() {
             deliveryModal.classList.add('active');
@@ -1106,6 +1555,23 @@
 
         function hideDeliveryModal() {
             deliveryModal.classList.remove('active');
+        }
+
+        function showSuccessModal(bookingId) {
+            // Устанавливаем номер бронирования в модальное окно
+            modalBookingId.textContent = `Номер брони: ${bookingId}`;
+
+            // Показываем модальное окно
+            successModal.classList.add('active');
+
+            // Устанавливаем таймер на автоматическое закрытие через 30 секунд
+            clearTimeout(autoCloseTimer);
+            autoCloseTimer = setTimeout(hideSuccessModal, 30000);
+        }
+
+        function hideSuccessModal() {
+            successModal.classList.remove('active');
+            clearTimeout(autoCloseTimer);
         }
 
         confirmDeliveryBtn.addEventListener('click', function() {
@@ -1119,6 +1585,8 @@
             hideDeliveryModal();
             processBooking();
         });
+
+        closeSuccessModalBtn.addEventListener('click', hideSuccessModal);
 
         // Обработчик отправки формы бронирования
         document.getElementById("bookingForm").addEventListener("submit", function(e) {
@@ -1134,6 +1602,7 @@
             const fullName = document.getElementById("fullName").value;
             const phoneNumber = document.getElementById("phone").value;
             const resultContainer = document.getElementById("bookingResult");
+            const costValue = document.getElementById("costValue").textContent;
 
             if (!resultContainer) {
                 console.error("Контейнер для результатов бронирования не найден");
@@ -1163,6 +1632,14 @@
                 resultContainer.innerHTML = "<div class='loading'></div><p>Оформляем бронирование...</p>";
                 resultContainer.className = "status-box show";
 
+                // Устанавливаем таймер на автоматическое скрытие сообщения через 30 секунд
+                setTimeout(() => {
+                    if (resultContainer.innerHTML.includes("Оформляем бронирование")) {
+                        resultContainer.className = "status-box";
+                        resultContainer.innerHTML = "";
+                    }
+                }, 30000);
+
                 const bookingData = {
                     uuid: uuid,
                     startDate: startDate,
@@ -1186,27 +1663,20 @@
 
                 const bookingId = await response.text();
 
-                resultContainer.innerHTML = `
-                        <h3>Бронирование оформлено!</h3>
-                        <p>Номер брони: <strong>${bookingId}</strong></p>
-                        <p>Период: ${formatDate(startDate)} — ${formatDate(endDate)}</p>
-                        <p>Имя: ${fullName}</p>
-                        <p>Телефон: ${phoneNumber}</p>
-                        <p>Доставка: ${extraServiceValue ? 'Да' : 'Нет'}</p>
-                    `;
-                resultContainer.className = "status-box confirmed show";
-
+                // Очищаем форму
                 document.getElementById("uuidInput").value = "";
                 document.getElementById("uuidInput").disabled = true;
                 document.getElementById("fullName").value = "";
                 document.getElementById("phone").value = "";
 
-                document.getElementById("checkUuidInput").value = bookingId.replace(/['"]+/g, '');
+                // Скрываем статусное сообщение перед показом модального окна
+                resultContainer.className = "status-box";
+                resultContainer.innerHTML = "";
 
-                switchToStatusTab();
+                // Показываем модальное окно с подтверждением
+                showSuccessModal(bookingId);
 
-                checkOrderStatus(bookingId.replace(/['"]+/g, ''));
-
+                // Обновляем проверку доступности
                 setTimeout(checkAvailability, 300);
 
             } catch (error) {
@@ -1214,79 +1684,6 @@
                 resultContainer.className = "status-box show";
                 console.error("Ошибка при бронировании:", error);
             }
-        }
-
-        // Проверка статуса заказа
-        document.getElementById("checkOrderBtn").addEventListener("click", function() {
-            const uuid = document.getElementById("checkUuidInput").value.trim();
-            if (!uuid) {
-                showStatusError(document.getElementById("checkOrderResult"), "Введите номер брони!");
-                return;
-            }
-            checkOrderStatus(uuid);
-        });
-
-        async function checkOrderStatus(uuid) {
-            const statusBox = document.getElementById("checkOrderResult");
-            const content = document.getElementById("orderStatusContent");
-
-            if (!statusBox || !content) {
-                console.error("Не найдены необходимые элементы для отображения статуса");
-                return;
-            }
-
-            try {
-                content.innerHTML = "<div class='loading'></div><p>Проверяем статус...</p>";
-                statusBox.className = "status-box show";
-
-                const response = await fetch(`/booking/check?uuid=${encodeURIComponent(uuid)}`);
-
-                if (!response.ok) {
-                    throw new Error(`Ошибка сервера: ${response.status}`);
-                }
-
-                let status = await response.text();
-                if (!status) throw new Error("Пустой ответ от сервера");
-
-                status = status.replace(/['"]+/g, '');
-                const statusText = getStatusText(status);
-
-                const now = new Date();
-                const paymentDeadline = new Date(now.getTime() + 3600000);
-                const deadlineString = paymentDeadline.toLocaleTimeString('ru-RU', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-
-                let statusHtml = `
-                    <h3>Статус заказа</h3>
-                    <p>Номер: ${uuid}</p>
-                    <p>Статус: <strong>${statusText}</strong></p>
-                `;
-
-                if (status === "PENDING") {
-                    statusHtml += `
-                        <div class="payment-section">
-                            <div class="payment-info">
-                                <p>Менеджер свяжется с Вами в ближайшее время</p>
-                                <p>Срок оплаты: до ${deadlineString}</p>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                content.innerHTML = statusHtml;
-                statusBox.className = `status-box ${status.toLowerCase()} show`;
-
-            } catch (error) {
-                showStatusError(statusBox, error.message);
-                console.error("Ошибка при проверке статуса:", error);
-            }
-        }
-
-        function switchToStatusTab() {
-            const statusTab = document.querySelector('.tab[data-tab="status"]');
-            switchTab(statusTab);
         }
 
         function displayAvailableItems(item) {
@@ -1315,31 +1712,7 @@
             uuidInput.disabled = false;
 
             bookingSection.classList.add("show");
-        }
-
-        function showStatusError(container, message) {
-            if (!container) {
-                console.error("Контейнер для ошибки не найден");
-                return;
-            }
-
-            container.innerHTML = `
-                    <div>
-                        <h3>Ошибка</h3>
-                        <p>${message}</p>
-                    </div>
-                `;
-            container.className = "status-box show";
-        }
-
-        function getStatusText(status) {
-            const statusMap = {
-                "PENDING": "Не подтвержден",
-                "CONFIRMED": "Подтвержден",
-                "COMPLETED": "Выполнен",
-                "CANCELLED": "Отменен"
-            };
-            return statusMap[status] || status;
+            calculateRentalCost();
         }
 
         function formatDate(dateString) {
