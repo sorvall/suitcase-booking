@@ -15,7 +15,7 @@ import ru.sorokin.booking.repository.SuitcaseRepository;
 import ru.sorokin.booking.repository.UserRepository;
 import ru.sorokin.booking.util.NotificationTemplates;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -49,7 +49,7 @@ public class BookingService {
                         bookingRequestDto.getStartDate(),
                         bookingRequestDto.getEndDate(),
                         BookingStatus.PENDING,
-                        OffsetDateTime.now()
+                        LocalDateTime.now()
                 )
         );
 

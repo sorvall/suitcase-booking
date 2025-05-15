@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import ru.sorokin.booking.enums.BookingStatus;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -33,15 +33,15 @@ public class Booking {
     private BookingStatus status;
 
     @Column(nullable = false)
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Column
-    private OffsetDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     public Booking() {
     }
 
-    public Booking(User user, Suitcase suitcase, LocalDate startDate, LocalDate endDate, BookingStatus status, OffsetDateTime createdAt) {
+    public Booking(User user, Suitcase suitcase, LocalDate startDate, LocalDate endDate, BookingStatus status, LocalDateTime createdAt) {
         this.user = user;
         this.suitcase = suitcase;
         this.startDate = startDate;
@@ -98,19 +98,19 @@ public class Booking {
         this.status = status;
     }
 
-    public OffsetDateTime getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(OffsetDateTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public OffsetDateTime getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(OffsetDateTime updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
