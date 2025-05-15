@@ -26,8 +26,8 @@ spring:
   rabbitmq:
     host: 103.74.93.74
     port: 5672
-    username: ${RABBITMQ_DEFAULT_USER}
-    password: ${RABBITMQ_DEFAULT_PASS}
+    username: admin
+    password: HyEaPMAr
     virtual-host: /app
 
   jpa:
