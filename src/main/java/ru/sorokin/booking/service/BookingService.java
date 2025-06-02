@@ -77,7 +77,7 @@ public class BookingService {
     }
 
     private String getMessage(Booking booking, BookingRequestDto bookingRequestDto) {
-        return String.format(NotificationTemplates.BOOKING_CREATED_TEMPLATE, booking.getId(), booking.getStartDate(), booking.getEndDate(), bookingRequestDto.getPhoneNumber(), bookingRequestDto.getFullName(), bookingRequestDto.isExtraService() ? "Да" : "Нет");
+        return String.format(NotificationTemplates.BOOKING_CREATED_TEMPLATE, booking.getId(), booking.getStartDate(), booking.getEndDate(), bookingRequestDto.getPhoneNumber().replaceAll("\\s+", ""), bookingRequestDto.getFullName(), bookingRequestDto.isExtraService() ? "Да" : "Нет");
     }
 
 }
