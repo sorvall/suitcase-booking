@@ -16,6 +16,7 @@ import ru.sorokin.booking.repository.UserRepository;
 import ru.sorokin.booking.util.NotificationTemplates;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -54,7 +55,6 @@ public class BookingService {
         );
 
         extraServiceService.addExtraService(bookingRequestDto, booking, ExtraServiceType.DELIVERY);
-
         orderProducer.sendOrderForDelayedCheck(booking.getId());
         orderProducer.sendNotification(getMessage(booking, bookingRequestDto));
         return booking;
@@ -77,7 +77,8 @@ public class BookingService {
     }
 
     private String getMessage(Booking booking, BookingRequestDto bookingRequestDto) {
-        return String.format(NotificationTemplates.BOOKING_CREATED_TEMPLATE, booking.getId(), booking.getStartDate(), booking.getEndDate(), bookingRequestDto.getPhoneNumber().replaceAll("\\s+", ""), bookingRequestDto.getFullName(), bookingRequestDto.isExtraService() ? "Да" : "Нет");
+        long daysBetween = ChronoUnit.DAYS.between(bookingRequestDto.getStartDate(), bookingRequestDto.getEndDate());
+        return String.format(NotificationTemplates.BOOKING_CREATED_TEMPLATE, booking.getId(), booking.getStartDate(), booking.getEndDate(), daysBetween, bookingRequestDto.getPhoneNumber().replaceAll("\\s+", ""), bookingRequestDto.getFullName(), bookingRequestDto.isExtraService() ? "Да" : "Нет");
     }
 
 }
