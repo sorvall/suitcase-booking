@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Аренда велочемодана в Москве | BikeBoxGo - безопасная перевозка велосипеда в самолёте</title>
-    <meta name="description" content="Аренда профессионального велочемодана в Москве всего за 400 руб/сутки. Гарантия безопасной перевозки вашего велосипеда в самолёте. Доставка по Москве.">
+    <meta name="description" content="Аренда профессионального велочемодана в Москве всего за 500 руб/сутки. Гарантия безопасной перевозки вашего велосипеда в самолёте. Доставка по Москве.">
     <meta name="keywords" content="аренда велочемодана, велочемодан москва, перевозка велосипеда, аренда велотранспорта, bikebox аренда">
     <meta name="robots" content="index, follow">
 
     <!-- OpenGraph разметка для соцсетей -->
     <meta property="og:title" content="Аренда велочемодана в Москве | BikeBoxGo">
-    <meta property="og:description" content="Безопасная перевозка вашего велосипеда в самолёте. Аренда от 400 руб/сутки с доставкой по Москве.">
+    <meta property="og:description" content="Безопасная перевозка вашего велосипеда в самолёте. Аренда от 500 руб/сутки с доставкой по Москве.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bikeboxgo.ru/">
     <meta property="og:image" content="https://bikeboxgo.ru/images/og-image.jpg">
@@ -37,7 +37,7 @@
                 "addressCountry": "Россия"
             },
             "telephone": "+79654080754",
-            "priceRange": "400-1500 руб.",
+            "priceRange": "500-2500 руб.",
             "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": [
@@ -947,7 +947,7 @@
 <header class="header" itemscope itemtype="https://schema.org/LocalBusiness">
     <div class="header-content">
         <img src="images/log.png" alt="BikeBoxGo - аренда велочемоданов в Москве" class="logo" itemprop="logo">
-        <h1 class="header-title" itemprop="name">Аренда велочемоданов | 400 рублей/сутки</h1>
+        <h1 class="header-title" itemprop="name">Аренда велочемоданов | 500 рублей/сутки</h1>
         <p class="header-subtitle" itemprop="description">Надёжная защита вашего велосипеда при авиаперелётах</p>
         <div class="header-contact">
             <a href="https://t.me/Dear_V_S" class="contact-link" target="_blank" rel="noopener noreferrer">
@@ -1103,7 +1103,7 @@
 
             <h3>Стоимость и сроки</h3>
             <ul>
-                <li>Аренда велочемодана стоит <span class="price-highlight">400 рублей в сутки</span></li>
+                <li>Аренда велочемодана стоит <span class="price-highlight">500 рублей в сутки</span></li>
                 <li>Минимальный срок аренды - <span class="price-highlight">7 суток</span></li>
                 <li>Оплата производится при получении чемодана</li>
             </ul>
@@ -1111,8 +1111,8 @@
             <h3>Доставка</h3>
             <p>Мы предлагаем удобную доставку по Москве:</p>
             <ul>
-                <li>Доставка чемодана к вам - <span class="price-highlight">750 рублей</span></li>
-                <li>Возврат чемодана - <span class="price-highlight">750 рублей</span></li>
+                <li>Доставка чемодана к вам - <span class="price-highlight">1250 рублей</span></li>
+                <li>Возврат чемодана - <span class="price-highlight">1250 рублей</span></li>
             </ul>
 
             <h3>Как забронировать</h3>
@@ -1145,7 +1145,7 @@
     <div class="modal">
         <h3 class="modal-title">Нужна доставка велочемодана?</h3>
         <div class="modal-content">
-            <p>Пожалуйста, уточните, требуется ли Вам доставка велочемодана? Доставка осуществляется по г. Москва, стоимость доставки + возврата 1500 рублей.</p>
+            <p>Пожалуйста, уточните, требуется ли Вам доставка велочемодана? Доставка осуществляется по г. Москва, стоимость доставки + возврата 2500 рублей.</p>
         </div>
         <div class="modal-buttons">
             <button class="modal-btn modal-btn-primary" id="confirmDeliveryBtn">Да</button>
@@ -1303,14 +1303,14 @@
                 return;
             }
 
-            const cost = diffDays * 400;
+            const cost = diffDays * 500;
             costValueElement.textContent = cost;
 
             // Добавляем детали расчета
             rentalDetailsElement.innerHTML = `
                 <div>Период аренды: ${formatDate(startDate)} — ${formatDate(endDate)}</div>
                 <div>Количество дней: ${diffDays}</div>
-                <div>Расчет стоимости: ${diffDays} × 400 руб./сутки = ${cost} руб.</div>
+                <div>Расчет стоимости: ${diffDays} × 500 руб./сутки = ${cost} руб.</div>
             `;
 
             rentalCostElement.style.display = 'block';
