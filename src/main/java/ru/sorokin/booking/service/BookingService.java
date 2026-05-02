@@ -82,6 +82,9 @@ public class BookingService {
         BookingResponseDto dto = new BookingResponseDto();
         dto.setId(booking.getId());
         dto.setSuitcaseId(booking.getSuitcase().getId());
+        User user = booking.getUser();
+        dto.setFullName(user.getFullName());
+        dto.setPhone(user.getPhone());
         dto.setStartDate(booking.getStartDate());
         dto.setEndDate(booking.getEndDate());
         dto.setStatus(booking.getStatus().name());
