@@ -1,5 +1,5 @@
-# Используем официальный образ OpenJDK
-FROM openjdk:21-jdk-slim
+# Eclipse Temurin JRE 21 (Ubuntu Jammy)
+FROM eclipse-temurin:21-jre-jammy
 
 ENV TZ=Europe/Moscow
 
