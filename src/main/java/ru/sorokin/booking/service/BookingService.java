@@ -130,7 +130,7 @@ public class BookingService {
 
     private String getMessage(Booking booking, BookingRequestDto bookingRequestDto) {
         long daysBetween = ChronoUnit.DAYS.between(bookingRequestDto.getStartDate(), bookingRequestDto.getEndDate()) + 1;
-        long cost = daysBetween * 600 + (bookingRequestDto.isExtraService() ? 2500 : 0);
+        long cost = daysBetween * 500 + (bookingRequestDto.isExtraService() ? 2500 : 0);
         return String.format(NotificationTemplates.BOOKING_CREATED_TEMPLATE, booking.getId(), booking.getStartDate(), booking.getEndDate(), daysBetween, bookingRequestDto.getPhoneNumber().replaceAll("\\s+", ""), bookingRequestDto.getFullName(), bookingRequestDto.isExtraService() ? "Да" : "Нет", cost);
     }
 
