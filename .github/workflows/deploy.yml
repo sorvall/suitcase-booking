@@ -73,5 +73,5 @@ jobs:
             docker build -t suitcase-booking .
 
             # Запуск нового контейнера с подключением к сети
-            docker run --restart unless-stopped -d --name suitcase-booking-container --network suitcase-network suitcase-booking
+            docker run --restart=on-failure:5 -d --name suitcase-booking-container --network suitcase-network suitcase-booking
 

@@ -13,14 +13,12 @@ import ru.sorokin.booking.exception.NotFoundException;
 import ru.sorokin.booking.enums.BookingStatus;
 import ru.sorokin.booking.enums.ExtraServiceType;
 import ru.sorokin.booking.order.OrderProducer;
-import ru.sorokin.booking.push.PushNotificationService;
 import ru.sorokin.booking.repository.BookingRepository;
 import ru.sorokin.booking.repository.SuitcaseRepository;
 import ru.sorokin.booking.repository.UserRepository;
 import ru.sorokin.booking.util.NotificationTemplates;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -36,16 +34,14 @@ public class BookingService {
     private final OrderProducer orderProducer;
     private final ExtraServiceService extraServiceService;
     private final UserService userService;
-    private final PushNotificationService pushNotificationService;
 
-    public BookingService(BookingRepository bookingRepository, SuitcaseRepository suitcaseRepository, UserRepository userRepository, OrderProducer orderProducer, ExtraServiceService extraServiceService, UserService userService, PushNotificationService pushNotificationService) {
+    public BookingService(BookingRepository bookingRepository, SuitcaseRepository suitcaseRepository, UserRepository userRepository, OrderProducer orderProducer, ExtraServiceService extraServiceService, UserService userService) {
         this.bookingRepository = bookingRepository;
         this.suitcaseRepository = suitcaseRepository;
         this.userRepository = userRepository;
         this.orderProducer = orderProducer;
         this.extraServiceService = extraServiceService;
         this.userService = userService;
-        this.pushNotificationService = pushNotificationService;
     }
 
     public Booking createBooking(BookingRequestDto bookingRequestDto) {
@@ -62,8 +58,8 @@ public class BookingService {
         );
 
         extraServiceService.addExtraService(bookingRequestDto, booking, ExtraServiceType.DELIVERY);
+        orderProducer.sendOrderForDelayedCheck(booking.getId());
         orderProducer.sendNotification(getMessage(booking, bookingRequestDto));
-        sendPush(bookingRequestDto);
         return booking;
     }
 
@@ -132,29 +128,9 @@ public class BookingService {
         return bookingRepository.getDashboard();
     }
 
-    private static long rentalDays(BookingRequestDto dto) {
-        return ChronoUnit.DAYS.between(dto.getStartDate(), dto.getEndDate()) + 1;
-    }
-
-    private static long cost(BookingRequestDto dto) {
-        return rentalDays(dto) * 500 + (dto.isExtraService() ? 2500 : 0);
-    }
-
-    /** Push в PWA админки; ошибка отправки не должна ломать оформление заказа. */
-    private void sendPush(BookingRequestDto dto) {
-        try {
-            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM");
-            String body = dto.getFullName() + " · " + dto.getStartDate().format(format) + "–" + dto.getEndDate().format(format)
-                    + " (" + rentalDays(dto) + " дн.)" + (dto.isExtraService() ? " · доставка" : "") + " · " + cost(dto) + " ₽";
-            pushNotificationService.sendToAll("Новый заказ", body, "/admin");
-        } catch (RuntimeException e) {
-            LOGGER.warn("Cannot send push about new booking: {}", e.toString());
-        }
-    }
-
     private String getMessage(Booking booking, BookingRequestDto bookingRequestDto) {
-        long daysBetween = rentalDays(bookingRequestDto);
-        long cost = cost(bookingRequestDto);
+        long daysBetween = ChronoUnit.DAYS.between(bookingRequestDto.getStartDate(), bookingRequestDto.getEndDate()) + 1;
+        long cost = daysBetween * 500 + (bookingRequestDto.isExtraService() ? 2500 : 0);
         return String.format(NotificationTemplates.BOOKING_CREATED_TEMPLATE, booking.getId(), booking.getStartDate(), booking.getEndDate(), daysBetween, bookingRequestDto.getPhoneNumber().replaceAll("\\s+", ""), bookingRequestDto.getFullName(), bookingRequestDto.isExtraService() ? "Да" : "Нет", cost);
     }
 
