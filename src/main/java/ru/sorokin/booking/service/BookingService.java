@@ -58,7 +58,6 @@ public class BookingService {
         );
 
         extraServiceService.addExtraService(bookingRequestDto, booking, ExtraServiceType.DELIVERY);
-        orderProducer.sendOrderForDelayedCheck(booking.getId());
         orderProducer.sendNotification(getMessage(booking, bookingRequestDto));
         return booking;
     }
