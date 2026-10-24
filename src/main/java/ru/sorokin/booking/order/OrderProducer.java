@@ -7,8 +7,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import ru.sorokin.booking.configuration.RabbitMQConfiguration;
 
-import java.util.UUID;
-
 @Service
 public class OrderProducer {
     private final ObjectMapper mapper = new ObjectMapper();
@@ -17,18 +15,6 @@ public class OrderProducer {
 
     public OrderProducer(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
-    }
-
-    public void sendOrderForDelayedCheck(UUID bookingId) {
-        try {
-            Message message = new Message(mapper.writeValueAsBytes(bookingId));
-            rabbitTemplate.convertAndSend(
-                    RabbitMQConfiguration.ORDER_EXCHANGE,
-                    "order",
-                    message);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void sendNotification(String messageBody) {
