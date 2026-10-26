@@ -1,4 +1,4 @@
-name: Build and Deploy Gateway
+name: Build and Deploy Booking
 
 on:
   push:
@@ -22,17 +22,19 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
+      # Копирование JAR файла в удаленный сервер
       - name: Copy JAR to remote server
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "build/libs/suitcase-booking-0.0.1-SNAPSHOT"
+          source: "build/libs/suitcase-booking-0.0.1-SNAPSHOT.jar"
           target: "/root/suitcase-app/booking"
 
+      # Копирование Dockerfile на удаленный сервер
       - name: Copy Dockerfile to remote server
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -42,6 +44,18 @@ jobs:
           source: "Dockerfile"
           target: "/root/suitcase-app/booking"
 
+      # Создание Docker-сети
+      - name: Create Docker Network
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            # Создаем Docker-сеть (если она еще не существует)
+            docker network create suitcase-network || true
+
+      # Шаг: Сборка и запуск контейнера
       - name: SSH Command to Build and Run Docker Container
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -58,5 +72,6 @@ jobs:
             # Построить новый образ
             docker build -t suitcase-booking .
 
-            # Запустить новый контейнер
-            docker run -d -p 8081:8081 --name suitcase-booking-container suitcase-booking
+            # Запуск нового контейнера с подключением к сети
+            docker run --restart unless-stopped -d --name suitcase-booking-container --network suitcase-network suitcase-booking
+

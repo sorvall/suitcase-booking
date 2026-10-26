@@ -5,8 +5,9 @@ import java.util.UUID;
 
 public class BookingResponseDto {
     private UUID id;
-    
-    private  UUID suitcaseId;
+    private UUID suitcaseId;
+    private String fullName;
+    private String phone;
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
@@ -28,6 +29,22 @@ public class BookingResponseDto {
 
     public void setSuitcaseId(UUID suitcaseId) {
         this.suitcaseId = suitcaseId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public LocalDate getStartDate() {

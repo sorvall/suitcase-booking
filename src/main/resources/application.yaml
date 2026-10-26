@@ -4,14 +4,16 @@ server:
 spring:
   application:
     name: suitcase-booking
-
-  main:
-    banner-mode: off
-
+  boot:
+    admin:
+      client:
+        url: http://bikeboxgo.ru:8085  # Адрес сервера SBA
+        instance:
+          name: suitcase-booking  # Уникальное имя для каждого сервиса!
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://suitcase-app-postgres-1:5432/postgres  # контейнер Postgres во внутренней сети suitcase-network
+    username: admin
+    password: lPFMUWrH
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -20,36 +22,49 @@ spring:
       connection-timeout: 20000
       pool-name: HikariPoolSuitcase
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
 
-    jpa:
-      hibernate:
-        ddl-auto: none
+  rabbitmq:
+    host: suitcase-app-rabbitmq-1  # контейнер RabbitMQ во внутренней сети suitcase-network
+    port: 5672
+    username: admin
+    password: HyEaPMAr
+    virtual-host: /app
+
+  jpa:
+    hibernate:
+      ddl-auto: none
       show-sql: true
       properties:
         hibernate:
+
           format_sql: true
           dialect: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Europe/Moscow
 
-    flyway:
-      enabled: true
-      locations: classpath:db/migration
-      baseline-on-migrate: true
-      validate-on-migrate: true
-      clean-disabled: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    # Если таблицы есть, а журнала миграций нет (база создана вручную или перенесена),
+    # считать её актуальной на этой версии и не создавать таблицы заново. На пустую базу не влияет
+    baseline-version: "20261025.1"
+    validate-on-migrate: true
+    clean-disabled: true
 
   logging:
     level:
       org.hibernate.SQL: DEBUG
       org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML
-    encoding: UTF-8
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env, loggers
+  endpoint:
+    health:
+      show-details: always
 
