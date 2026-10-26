@@ -12,7 +12,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface BookingRepository extends JpaRepository<Booking, UUID> {
-    List<Booking> findBySuitcaseInAndStartDateLessThanEqualAndEndDateGreaterThanEqualAndStatusNotIn(
+    /**
+     * Брони, пересекающиеся с периодом. Сравнения строгие: день окончания одной брони
+     * может быть днём начала другой (чемодан вернули и в тот же день выдали снова).
+     */
+    List<Booking> findBySuitcaseInAndStartDateLessThanAndEndDateGreaterThanAndStatusNotIn(
             List<Suitcase> suitcases,
             LocalDate endDate,
             LocalDate startDate,

@@ -34,7 +34,7 @@ public class AvailabilityService {
         List<Suitcase> allAvailable = suitcaseRepository.findAllByStatus(SuitcaseStatus.AVAILABLE);
 
         List<Booking> conflictingBookings = bookingRepository
-                .findBySuitcaseInAndStartDateLessThanEqualAndEndDateGreaterThanEqualAndStatusNotIn(
+                .findBySuitcaseInAndStartDateLessThanAndEndDateGreaterThanAndStatusNotIn(
                         allAvailable, endDate, startDate, List.of(BookingStatus.CANCELLED, BookingStatus.COMPLETED)
                 );
 

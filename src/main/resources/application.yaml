@@ -48,6 +48,9 @@ spring:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
+    # Если таблицы есть, а журнала миграций нет (база создана вручную или перенесена),
+    # считать её актуальной на этой версии и не создавать таблицы заново. На пустую базу не влияет
+    baseline-version: "20261025.1"
     validate-on-migrate: true
     clean-disabled: true
 
